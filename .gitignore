@@ -4,8 +4,6 @@ db
 upload
 email
 /apps/shop/db
-
-
 apps/shop/db/**
 
 # compiled output
