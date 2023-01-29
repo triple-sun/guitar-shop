@@ -1,5 +1,13 @@
 # See http://help.github.comgit/ignore-files/ for more about ignoring files.
 
+db
+upload
+email
+/apps/shop/db
+
+
+apps/shop/db/**
+
 # compiled output
 dist
 tmp
@@ -37,10 +45,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-**/db/
-upload
-email
-/apps/shop/db
-
 
