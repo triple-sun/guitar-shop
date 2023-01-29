@@ -1,4 +1,4 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+# See http://help.github.comgit/ignore-files/ for more about ignoring files.
 
 # compiled output
 dist
@@ -38,5 +38,9 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# database files
-/db
+**/db/
+upload
+email
+/apps/shop/db
+
+
