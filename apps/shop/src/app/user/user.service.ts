@@ -1,5 +1,5 @@
-import { Prefix, UserEntity } from '@guitar-shop/shared-types';
-import { ConflictException, Injectable, Logger } from '@nestjs/common';
+import { UserEntity } from '@guitar-shop/shared-types';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserRepository } from './user.repository';
 
@@ -7,7 +7,6 @@ import { UserRepository } from './user.repository';
 export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly logger = new Logger(Prefix.User)
   ) {}
 
   async findAll() {
@@ -30,13 +29,7 @@ export class UserService {
 
     const userEntity = await new UserEntity(newUserData).setPassword(password)
 
-    this.logger.log(`Creating new user with email ${email}`)
-
-    const created =  await this.userRepository.create(userEntity);
-
-    this.logger.log(`Success!`)
-
-    return created
+    return await this.userRepository.create(userEntity);
   }
 
   async findOne(id: number) {

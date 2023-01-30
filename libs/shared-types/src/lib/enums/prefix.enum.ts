@@ -3,5 +3,8 @@ export enum Prefix {
   Auth = 'auth',
   Global = 'api',
   Review = 'review',
-  Guitar = 'guitar'
+  Guitar = 'guitar',
+  Shop = 'shop',
+  Subscriber = 'subscriber',
+  Spec = 'spec'
 }

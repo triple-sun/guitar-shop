@@ -1,8 +1,6 @@
-import { IUser } from "@guitar-shop/shared-types";
+import { PickType } from "@nestjs/swagger";
+import { UserDTO } from "./user.dto";
 
-export class CreateUserDto implements IUser {
-  public name: string;
-  public email: string;
-  public isAdmin: boolean;
-  public password?: string;
-}
+export class CreateUserDto extends PickType(
+  UserDTO, ['email', 'name', 'password', 'isAdmin'] as const
+) {}

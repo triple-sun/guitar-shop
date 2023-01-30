@@ -1,8 +1,10 @@
+import { Property } from "./enums/property.enum";
+
 export interface IReview {
-  id?: number;
-  createdAt: Date
-  pros: string
-  cons: string
-  comment: string
-  rating: number
+  [Property.Id]?: number;
+  [Property.CreatedAt]: Date
+  [Property.Pros]: string
+  [Property.Cons]: string
+  [Property.Comment]: string
+  [Property.Rating]: number
 }

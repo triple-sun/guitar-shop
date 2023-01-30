@@ -13,8 +13,16 @@
         "outputPath": "dist/apps/shop",
         "main": "apps/shop/src/main.ts",
         "tsConfig": "apps/shop/tsconfig.app.json",
-        "assets": ["apps/shop/src/assets"],
-        "webpackConfig": "apps/shop/webpack.config.js"
+       "transformers": [{
+          "name": "@nestjs/swagger/plugin",
+          "options": {
+            "classValidatorShim": true
+          }
+        }],
+        "assets": [
+          "apps/shop/src/assets"
+        ],
+        "generatePackageJson": true
       },
       "configurations": {
         "production": {
@@ -60,14 +68,14 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "npx prisma generate --schema= ./prisma/schema.prisma",
-        "cwd": "libs/prisma"
+        "cwd": "apps/shop"
       }
     },
     "db-validate": {
       "executor": "nx:run-commands",
       "options": {
         "command": "npx prisma validate --schema ./prisma/schema.prisma",
-        "cwd": "libs/prisma"
+        "cwd": "apps/shop"
 
       }
     },
@@ -75,21 +83,21 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "npx prisma migrate dev --schema ./prisma/schema.prisma --name initial --skip-generate --skip-seed",
-        "cwd": "libs/prisma"
+        "cwd": "apps/shop"
       }
     },
     "db-reset": {
       "executor": "nx:run-commands",
       "options": {
         "command": "npx prisma migrate reset --schema ./prisma/schema.prisma --force --skip-generate --skip-seed",
-        "cwd": "libs/prisma"
+        "cwd": "apps/shop"
       }
     },
     "db-fill": {
       "executor": "nx:run-commands",
       "options": {
         "command": "npx prisma db seed",
-        "cwd": "libs/prisma"
+        "cwd": "apps/shop"
       }
     }
   },

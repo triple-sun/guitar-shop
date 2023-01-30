@@ -1,16 +1,17 @@
 import { GuitarType, StringCount } from "@prisma/client";
+import { Property } from "./enums/property.enum";
 
 export interface IGuitar {
-  id?: number;
-  name: string;
-  desc: string;
-  type: GuitarType;
-  createdAt: Date
-  photo: string
-  sku: string
-  strings: StringCount
-  rating: number
-  price: number
-  reviews?: string
-  reviewCount?: string;
+  [Property.Id]?: number
+  [Property.Title]: string
+  [Property.Desc]: string
+  [Property.Type]: GuitarType
+  [Property.CreatedAt]: Date;
+  [Property.Photo]: string;
+  [Property.Sku]: string;
+  [Property.Strings]: StringCount;
+  [Property.TotalRating]: number;
+  [Property.Price]: number;
+  [Property.Reviews]?: string;
+  [Property.ReviewCount]?: string;
 }

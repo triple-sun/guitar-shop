@@ -1,11 +1,13 @@
 import { genSalt, hash, compare } from 'bcrypt';
+import { IEntity } from '../entity.interface';
 import { IUser } from "../user.interface";
 
-export class UserEntity implements IUser {
+export class UserEntity implements IEntity<IUser> {
   public id: number;
   public email: string;
   public name: string;
   public isAdmin: boolean;
+  public password?: string
   public passwordHash: string;
 
   constructor(user: IUser) {
