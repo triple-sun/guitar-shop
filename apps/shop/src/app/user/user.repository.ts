@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
-export class UserRepository implements ICRUD<UserEntity , number | Partial<IUser>, IUser> {
+export class UserRepository implements ICRUD<UserEntity, number | string, IUser> {
   constructor(
     private readonly prismaService: PrismaService
   ) {}
@@ -18,9 +18,16 @@ export class UserRepository implements ICRUD<UserEntity , number | Partial<IUser
     })
   }
 
-  public async findOne({id, email}: Partial<IUser>): Promise<IUser | null> {
+  public async findOne(id: number): Promise<IUser | null> {
     return await this.prismaService.user.findUnique({
-       where: (email ? { email } : { id })
+       where: { id }
+    })
+  }
+
+  public async findByEmail(email: string) {
+    console.log(email)
+    return await this.prismaService.user.findUnique({
+       where: { email }
     })
   }
 }

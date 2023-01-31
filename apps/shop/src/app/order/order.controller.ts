@@ -3,21 +3,32 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import { OrderItemsExistGuard } from './guards/order-guitars-exist.guard';
+import { JwtAuthGuard, Prefix, User } from '@guitar-shop/core';
+import { UserAuthDto } from '../user/dto/user-auth.dto';
 
-@Controller('order')
+@Controller(Prefix.Order)
+@ApiTags(Prefix.Order)
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.orderService.create(createOrderDto);
+  @ApiBody({type: CreateOrderDto})
+  @ApiBearerAuth()
+  @UseGuards(OrderItemsExistGuard)
+  @UseGuards(JwtAuthGuard)
+  create(
+    @Body() dto: CreateOrderDto,
+    @User() {userId}: UserAuthDto
+  ) {
+    return this.orderService.create(dto, userId);
   }
 
   @Get()
@@ -26,17 +37,12 @@ export class OrderController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.orderService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.orderService.update(+id, updateOrderDto);
+  findOne(@Param('id') orderId: number) {
+    return this.orderService.findOne(orderId);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.orderService.remove(+id);
+  remove(@Param('id') orderId: number) {
+    return this.orderService.remove(orderId);
   }
 }

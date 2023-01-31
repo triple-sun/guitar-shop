@@ -36,3 +36,5 @@ export const validateEnv = <T extends typeof APIEnvConfig>(envConfig: T) => (
 )
 
 export const getSize = (max: number, min: number) => ({ Max: max, Min: min })
+
+export const getAverage = (array: number[]) => array.length > 0 ? array.reduce((a, b) => a + b) / array.length : 0

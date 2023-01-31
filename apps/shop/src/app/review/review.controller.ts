@@ -3,40 +3,44 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
+  UseGuards,
+  Query,
 } from '@nestjs/common';
 import { ReviewService } from './review.service';
 import { CreateReviewDto } from './dto/create-review.dto';
-import { UpdateReviewDto } from './dto/update-review.dto';
+import { JwtAuthGuard, Prefix, User } from '@guitar-shop/core';
+import { GuitarExistsGuard } from '../guitar/guards/guitar-exists.guard';
+import { ApiBearerAuth, ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
+import { UserAuthDto } from '../user/dto/user-auth.dto';
 
-@Controller('review')
+@Controller(Prefix.Review)
+@ApiTags(Prefix.Review)
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
-  @Post()
-  create(@Body() createReviewDto: CreateReviewDto) {
-    return this.reviewService.create(createReviewDto);
+  @Post(`:id`)
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @UseGuards(GuitarExistsGuard)
+  @ApiBody({type: CreateReviewDto})
+  @ApiParam({name: 'id', type: Number})
+  @ApiBody({type: CreateReviewDto})
+  create(
+    @Param('id') itemId: number,
+    @User() user: UserAuthDto,
+    @Body() dto: CreateReviewDto
+  ) {
+    return this.reviewService.create(itemId, user, dto);
   }
 
-  @Get()
-  findAll() {
-    return this.reviewService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.reviewService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateReviewDto: UpdateReviewDto) {
-    return this.reviewService.update(+id, updateReviewDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.reviewService.remove(+id);
+  @Get(`:id`)
+  @UseGuards(GuitarExistsGuard)
+  @ApiParam({name: 'id', type: Number})
+  findAll(
+    @Param('id') itemId: number,
+    @Query('page') page = 1
+  ) {
+    return this.reviewService.findAll(itemId, page);
   }
 }

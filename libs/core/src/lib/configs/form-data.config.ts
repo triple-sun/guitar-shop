@@ -1,25 +1,20 @@
 import { ConfigModule, ConfigService, registerAs } from "@nestjs/config"
-import { AppName, Upload } from "../enum/utils.enum"
 import { FileSystemStoredFile } from 'nestjs-form-data'
-import { Size } from "../utils/size.util"
-import { capitalize } from "../utils/common.utils"
 import { FormDataInterceptorConfig, NestjsFormDataAsyncOptions } from "nestjs-form-data/dist/interfaces"
+import { Service } from "../enums/utils.enum"
 
-export const formDataConfig = registerAs(AppName.FormData, () => ({
+export const formDataOptions = registerAs(Service.FormData, () => ({
   upload: process.env.UPLOAD_DIR,
 }))
 
-export const getFormDataConfig = (type: Upload): NestjsFormDataAsyncOptions => ({
+export const getFormDataConfig = (): NestjsFormDataAsyncOptions => ({
   imports: [ConfigModule],
   useFactory: async (configService: ConfigService): Promise<FormDataInterceptorConfig>  => {
     return {
       storage: FileSystemStoredFile,
-      fileSystemStoragePath: configService.get<string>(`${AppName.FormData}.upload`),
+      fileSystemStoragePath: configService.get<string>(`${Service.FormData}.upload`),
       autoDeleteFile: false,
-      isGlobal: true,
-      limits: {
-        fileSize: Size[capitalize(type)].Max,
-      }
+      isGlobal: true
     }},
   inject: [ConfigService]
 })

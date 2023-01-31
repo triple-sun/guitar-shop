@@ -1,3 +1,4 @@
+import { Property } from '@guitar-shop/core';
 import { CanActivate, ExecutionContext, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { GuitarRepository } from '../guitar.repository';
 
@@ -8,12 +9,12 @@ export class GuitarExistsGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest()
+    const {params: { id }} = context.switchToHttp().getRequest()
 
-    const guitar = await this.guitarRepository.findOne(parseInt(request.params.id));
+    const guitar = await this.guitarRepository.findOne(parseInt(id));
 
     if (!guitar) {
-      throw new NotFoundException(`Guitar with id ${request.params.id} was not found`)
+      throw new NotFoundException(`Guitar with id ${id} was not found`)
     }
 
     return !!guitar;

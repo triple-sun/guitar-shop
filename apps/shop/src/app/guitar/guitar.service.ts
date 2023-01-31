@@ -1,6 +1,7 @@
 import { GuitarEntity, Property } from '@guitar-shop/core';
 import { Injectable } from '@nestjs/common';
-import { CreateGuitarDto } from './dto/create-guitar.dto';
+import { CreateGuitarDto, CreateGuitarQuery } from './dto/create-guitar.dto';
+import { GuitarIdDto } from './dto/guitar-id.dto';
 import { UpdateGuitarDto } from './dto/update-guitar.dto';
 import { GuitarRepository } from './guitar.repository';
 
@@ -10,9 +11,11 @@ export class GuitarService {
     private readonly guitarRepository: GuitarRepository
   ) {}
 
-  async create(dto: CreateGuitarDto) {
+  async create(dto: CreateGuitarDto, query: CreateGuitarQuery) {
     return await this.guitarRepository.create(
-      new GuitarEntity({...dto,
+      new GuitarEntity({
+        ...dto,
+        ...query,
         [Property.Photo]: dto.photo.path
       })
     );

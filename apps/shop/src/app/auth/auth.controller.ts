@@ -1,18 +1,19 @@
-import { Body, ConflictException, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { Body, ConflictException, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
 import { LoginUserDTO } from '../user/dto/login-user.dto';
-import { ApiAuth, Entity, Prefix, User } from '@guitar-shop/core';
+import { ApiAuth, Entity, JwtAuthGuard, Path, Prefix, User } from '@guitar-shop/core';
 import { CreateUserDto } from '../user/dto/create-user.dto';
-import { UserService } from '../user/user.service';
-import { VerifyUserRDO } from '../user/dto/payload-user.dto';
 import { EmailAlreadyExistsGuard } from './guards/email-already-exists.guard';
-import { UserLoginGuard } from './guards/user-verify.guard';
+import { VerifyUserDto } from '../user/dto/verify-user.dto';
+import { UserExistsGuard } from './guards/user-exists.guard';
+import { UserIdDto } from '../user/dto/user-id.dto';
+import { AuthService } from './auth.service';
 
 @ApiTags(Prefix.Auth)
 @Controller(Prefix.Auth)
 export class AuthController {
   constructor(
-    private readonly userService: UserService
+    private readonly authService: AuthService
   ) {}
 
   @Post()
@@ -22,28 +23,37 @@ export class AuthController {
     @Body() dto: CreateUserDto
   ) {
     try {
-      return await this.userService.create(dto);
+      return await this.authService.register(dto);
     } catch(err) {
       throw new ConflictException(err)
     }
   }
 
-  @Get()
+  @Get(':id')
+  @UseGuards(UserExistsGuard)
+  @ApiParam({name: 'id', type: UserIdDto})
+  async findUser(
+    @Param('id') userId: number
+  ) {
+    return await this.authService.findOne(userId);
+  }
+
+  @Get(Path.Verify)
   @ApiAuth(Entity.User)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async verifyUser(
-    @User() user: VerifyUserRDO
+    @User() user: VerifyUserDto
   ) {
     return user
   }
 
-  @Post('login')
-  @UseGuards(UserLoginGuard)
+  @Post(Path.Login)
   @ApiBody({type: LoginUserDTO})
   async loginUser(
-    @Body() dto: LoginUserDTO
+    @Body() dto: LoginUserDTO,
+    @Body() { name, userId }: VerifyUserDto
   ) {
-    const user = await this.userService.verifyUser(dto)
-
-    return await this.userService.loginUser(user.toObject())
+    return await this.authService.loginUser(userId, dto.email, name)
   }
 }

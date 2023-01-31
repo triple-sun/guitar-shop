@@ -11,10 +11,9 @@ export class UserExistsGuard implements CanActivate {
     const { id } = context.switchToHttp().getRequest().params
     const { email } = context.switchToHttp().getRequest().body
 
-    const user = await this.userRepository.findOne(email
-      ? { email }
-      : { id: parseInt(id) }
-    );
+    const user =  email
+    ? await this.userRepository.findByEmail(email)
+    : await this.userRepository.findOne(id)
 
     if (!user) {
       throw new NotFoundException(`User with ${ email ? `email ${email}` : `id ${id}` } was not found`)

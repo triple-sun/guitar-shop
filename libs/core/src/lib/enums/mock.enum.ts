@@ -1,7 +1,7 @@
 export enum MockManufacturer {
   Fender = 'Fender',
   Gibson = 'Gibson',
-  SFKI = 'Свердловская фирма клавишных инструментов "УРАЛ"',
+  SFKI = `Свердловская фирма клавишных инструментов 'УРАЛ'`,
   MusicMan = 'Music Man',
   Takamine = 'Takamine'
 }

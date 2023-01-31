@@ -1,26 +1,21 @@
+import { ReviewEntity } from '@guitar-shop/core';
 import { Injectable } from '@nestjs/common';
+import { UserAuthDto } from '../user/dto/user-auth.dto';
 import { CreateReviewDto } from './dto/create-review.dto';
-import { UpdateReviewDto } from './dto/update-review.dto';
+import { ReviewRepository } from './review.repository';
 
 @Injectable()
 export class ReviewService {
-  create(createReviewDto: CreateReviewDto) {
-    return 'This action adds a new review';
+  constructor(
+    private readonly reviewRepository: ReviewRepository
+  ) {}
+
+  create(itemId: number, user: UserAuthDto, dto: CreateReviewDto) {
+    const review = new ReviewEntity({...dto, itemId, userId: user.userId})
+    return this.reviewRepository.create(review)
   }
 
-  findAll() {
-    return `This action returns all review`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} review`;
-  }
-
-  update(id: number, updateReviewDto: UpdateReviewDto) {
-    return `This action updates a #${id} review`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} review`;
+  findAll(itemId: number, page: number) {
+    return this.reviewRepository.findMany(itemId, page)
   }
 }

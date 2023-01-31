@@ -11,7 +11,6 @@ export const ValidateENVProp = (validationOptions?: ValidationOptions) => {
       options: validationOptions,
       validator: {
         validate(value) {
-          console.log(value)
           return !!value
         },
         defaultMessage(args: ValidationArguments) {
@@ -29,8 +28,7 @@ export const ValidateENVPort = (validationOptions?: ValidationOptions) => {
       propertyName: propertyName,
       options: validationOptions,
       validator: {
-        validate(value, args: ValidationArguments) {
-          console.log(args)
+        validate(value) {
             return typeof value  === 'number' && value <= Size[Property.Port].Max && value > Size[Property.Port].Min
         },
         defaultMessage(args: ValidationArguments) {

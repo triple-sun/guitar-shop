@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker'
-import { GuitarType, StringCount } from '@prisma/client'
+import { ApiExample } from '../consts/api.const'
 import { Size } from '../consts/size.const'
-import { MockManufacturer, MockModel } from '../enums/mock.enum'
 import { Property } from '../enums/property.enum'
 import { IGuitar } from '../interfaces/guitar.interface'
 
@@ -9,14 +8,14 @@ const { Model, Description, Type, Photo, Sku, Strings, Price, CreatedAt, Updated
 
 export const createGuitar = (sku: string): IGuitar => ({
   [Sku]: sku,
-  [Description]: faker.commerce.productDescription().slice(0, 1025),
-  [Model]: `${faker.helpers.arrayElement(Object.values(MockManufacturer))} ${faker.helpers.arrayElement(Object.values(MockModel))}`,
+  [Description]: ApiExample.Str[Description],
+  [Model]: ApiExample.Str[Model],
   [CreatedAt]: faker.date.recent(100),
   [UpdatedAt]: faker.date.recent(730),
   [Photo]: `/markup/img/content/catalog-product-${faker.datatype.number({min: 0, max: 8})}.png`,
-  [Strings]: StringCount[faker.helpers.arrayElement(Object.keys(StringCount))],
-  [Type]:  GuitarType[faker.helpers.arrayElement(Object.keys(GuitarType))],
-  [Price]: parseInt(faker.commerce.price(100, 1000000))
+  [Strings]: ApiExample[Strings],
+  [Type]:  ApiExample[Type],
+  [Price]: ApiExample.Num[Price]
 })
 
 export const createMockGuitars = (count: number): IGuitar[] => {

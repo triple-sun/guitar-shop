@@ -1,23 +1,24 @@
+import { OrderEntity } from '@guitar-shop/core';
 import { Injectable } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import { OrderRepository } from './order.repository';
 
 @Injectable()
 export class OrderService {
-  create(createOrderDto: CreateOrderDto) {
-    return 'This action adds a new order';
+  constructor(
+    private readonly orderRepository: OrderRepository
+  ) {}
+  create(dto: CreateOrderDto, userId: number) {
+    const entity = new OrderEntity({...dto, userId})
+    return this.orderRepository.create(entity);
   }
 
-  findAll() {
+  async findAll() {
     return `This action returns all order`;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} order`;
-  }
-
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
   }
 
   remove(id: number) {

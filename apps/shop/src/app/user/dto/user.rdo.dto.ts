@@ -1,15 +1,15 @@
 import { IsBoolean, IsEmail, IsInt, IsJWT, IsString } from 'class-validator';
 import { Expose } from 'class-transformer';
 import { IntersectionType, PickType } from '@nestjs/swagger';
-import { UserIdDTO } from './user-id.dto';
+import { UserIdDto } from './user-id.dto';
 import { Property } from '@guitar-shop/core';
 import { CreateUserDto } from './create-user.dto';
 
-const { Email, Name, IsAdmin, Id, Token } = Property
+const { Email, Name, IsAdmin, Id: Id, Token } = Property
 
 export class UserRDO extends IntersectionType(
   PickType(CreateUserDto, [Name, Email] as const),
-  UserIdDTO
+  UserIdDto
 ) {
   @Expose({ name: Property.Id})
   @IsInt()

@@ -14,7 +14,6 @@ export enum ENVError {
   RMQSubscriberQueue = 'RabbitMQ Subscribers Queue is required',
   PortInvalid = 'Port value is invalid'
 }
-
 export enum EnvFilePath {
   Shop = 'apps/shop/.env',
   Notify = 'environments/notify.env',

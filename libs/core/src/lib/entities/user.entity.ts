@@ -3,10 +3,11 @@ import { Property } from '../enums/property.enum';
 import { IEntity } from '../interfaces/entity.interface';
 import { IUser } from '../interfaces/user.interface';
 
-const {Id, Email, Name, IsAdmin, Password, PasswordHash} = Property
+const {Id, UserId, Email, Name, IsAdmin, Password, PasswordHash} = Property
 
 export class UserEntity implements IEntity<IUser> {
-  public [Id]: number;
+  public [Id]?: number
+  public [UserId]?: number;
   public [Email]: string;
   public [Name]: string;
   public [IsAdmin]: boolean;
@@ -34,7 +35,8 @@ export class UserEntity implements IEntity<IUser> {
   }
 
   public fillEntity(user: IUser) {
-    this[Id] = user[Id];
+    this[Id] = user[Id]
+    this[UserId] = user[Id];
     this[Name] = user[Name];
     this[Email] = user[Email];
     this[IsAdmin] = user[IsAdmin];

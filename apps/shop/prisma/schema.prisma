@@ -46,34 +46,26 @@ model Guitar {
   sku       String
   strings   StringCount
   price     Int
-  orderItems OrderItem[]
+  orders Order[]
   reviews Review[]
 }
 
 model Review {
   id Int @default(autoincrement()) @id
-  createdAt DateTime
+  createdAt DateTime @default(now())
   pros String
   cons String
   comment String
   rating Int @default(1)
   item Guitar @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId Int
-  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId Int
-}
-
-model OrderItem {
-  item Guitar @relation(fields: [itemId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  itemId Int @id
-  count Int @default(1)
-  order Order @relation(fields: [orderId], references: [id])
-  orderId Int
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int @map("authorId")
 }
 
 model Order {
   id Int @default(autoincrement()) @id
-  items OrderItem[]
+  items Guitar[]
   createdAt DateTime @default(now())
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int

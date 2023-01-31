@@ -23,6 +23,13 @@ export enum Property {
   Port = 'port',
   Reviews = 'reviews',
   ReviewCount = 'reviewCount',
-  OrderItems = 'orderItems',
-  Token = 'token'
+  Items = 'items',
+  ItemIds = 'itemIds',
+  Token = 'token',
+  UserId = 'userId',
+  ItemId = 'itemId',
+  OrderId = 'orderId',
+  User = 'user',
+  Item = 'item',
+  Order = 'order'
 }

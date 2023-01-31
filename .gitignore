@@ -3,8 +3,6 @@
 db
 upload
 email
-/apps/shop/db
-apps/shop/db/**
 
 # compiled output
 dist
@@ -43,4 +41,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
+migrations
+.env
+thunder-tests
+upload

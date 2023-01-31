@@ -2,11 +2,11 @@ import { IGuitar, Property } from "@guitar-shop/core";
 import { GuitarType, StringCount } from "@prisma/client";
 import { Expose } from "class-transformer";
 
-const { Id, Model, Description, Type, Photo, Sku, Strings, Price } = Property
+const {  Model, Description, Type, Photo, Sku, Strings, Price, Id: ItemId } = Property
 
 export class GuitarDTO implements IGuitar {
   @Expose()
-  public [Id]: number
+  public [ItemId]: number
 
   @Expose()
   public [Model]: string

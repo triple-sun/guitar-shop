@@ -1,17 +1,17 @@
 import { GuitarEntity, ICRUD } from '@guitar-shop/core';
 import { Injectable } from '@nestjs/common';
-import { Guitar } from '@prisma/client';
+import { IGuitar } from '@guitar-shop/core';
 
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
-export class GuitarRepository implements ICRUD<GuitarEntity, number, Guitar> {
+export class GuitarRepository implements ICRUD<GuitarEntity, number, IGuitar> {
   constructor(
     private readonly prisma: PrismaService
   ) {}
 
-  public async create(item: GuitarEntity): Promise<Guitar> {
-    return await this.prisma.guitar.create({ data: item.toObject() })
+  public async create(item: GuitarEntity){
+    return await this.prisma.guitar.create({ data: item.toObject(), include: {reviews: true} })
   }
 
   public async destroy(id: number): Promise<void> {
@@ -28,8 +28,8 @@ export class GuitarRepository implements ICRUD<GuitarEntity, number, Guitar> {
     })
   }
 
-  public async findOne(id: number): Promise<Guitar | null> {
-    return await this.prisma.guitar.findUnique({ where: { id }})
+  public async findOne(id: number): Promise<IGuitar | null> {
+    return await this.prisma.guitar.findUnique({ where: { id }, include: { reviews: true, _count: { select: { reviews: true } } }})
   }
 
   public async update(id: number, item: GuitarEntity) {

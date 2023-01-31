@@ -3,7 +3,7 @@ import { Property } from '../enums/property.enum';
 import { IEntity } from '../interfaces/entity.interface';
 import { IGuitar } from '../interfaces/guitar.interface';
 
-const { Id, Model, Description, Type, Photo, Sku, Strings, Price } = Property
+const { Id: Id, Model, Description, Type, Photo, Sku, Strings, Price } = Property
 
 export class GuitarEntity implements IEntity<IGuitar> {
   public [Id]?: number;
