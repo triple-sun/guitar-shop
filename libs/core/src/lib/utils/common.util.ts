@@ -1,7 +1,8 @@
-import { Prefix, Service } from "@guitar-shop/shared-types";
 import { ClassConstructor, plainToInstance } from "class-transformer";
 import { validateSync } from "class-validator";
 import { APIEnvConfig } from "../configs/env.config";
+import { Prefix } from "../enums/prefix.enum";
+import { Service } from "../enums/utils.enum";
 
 export const fillObject = <T, V>(dto: ClassConstructor<T>, obj: V) => plainToInstance(dto, obj, { excludeExtraneousValues: true });
 
@@ -33,3 +34,5 @@ export const validateEnv = <T extends typeof APIEnvConfig>(envConfig: T) => (
     return cfg;
   }
 )
+
+export const getSize = (max: number, min: number) => ({ Max: max, Min: min })

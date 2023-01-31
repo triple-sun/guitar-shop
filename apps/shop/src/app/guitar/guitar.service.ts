@@ -1,26 +1,43 @@
+import { GuitarEntity, Property } from '@guitar-shop/core';
 import { Injectable } from '@nestjs/common';
 import { CreateGuitarDto } from './dto/create-guitar.dto';
 import { UpdateGuitarDto } from './dto/update-guitar.dto';
+import { GuitarRepository } from './guitar.repository';
 
 @Injectable()
 export class GuitarService {
-  create(createGuitarDto: CreateGuitarDto) {
-    return 'This action adds a new guitar';
+  constructor(
+    private readonly guitarRepository: GuitarRepository
+  ) {}
+
+  async create(dto: CreateGuitarDto) {
+    return await this.guitarRepository.create(
+      new GuitarEntity({...dto,
+        [Property.Photo]: dto.photo.path
+      })
+    );
   }
 
-  findAll() {
-    return `This action returns all guitar`;
+  async findMany(page = 1) {
+    return await this.guitarRepository.findMany(page)
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} guitar`;
+    return this.guitarRepository.findOne(id);
   }
 
-  update(id: number, updateGuitarDto: UpdateGuitarDto) {
-    return `This action updates a #${id} guitar`;
+  async update(id: number, dto: UpdateGuitarDto) {
+    const guitar = await this.guitarRepository.findOne(id)
+
+    return this.guitarRepository.update(
+      id,
+      new GuitarEntity({...guitar, ...dto,
+        [Property.Photo]: dto.photo?.path ?? guitar.photo
+      })
+    );
   }
 
   remove(id: number) {
-    return `This action removes a #${id} guitar`;
+    return this.guitarRepository.destroy(id);
   }
 }

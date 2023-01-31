@@ -1,38 +1,26 @@
 import {
   Controller,
   Get,
-  Post,
-  Body,
   Param,
-  Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { Prefix } from '@guitar-shop/shared-types';
 import { ApiTags } from '@nestjs/swagger';
+import { Prefix, Property } from '@guitar-shop/core';
+import { UserExistsGuard } from '../auth/guards/user-exists.guard';
 
 @ApiTags(Prefix.User)
 @Controller(Prefix.User)
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService
+  ) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.userService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.userService.findOne(id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.userService.remove(id);
+  @Get(`/:${Property.Id}`)
+  @UseGuards(UserExistsGuard)
+  async findUser(
+    @Param(Property.Id) id: number
+  ) {
+    return await this.userService.findOne(id);
   }
 }

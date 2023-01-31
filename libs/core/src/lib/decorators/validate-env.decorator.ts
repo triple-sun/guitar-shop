@@ -1,7 +1,7 @@
-import { Property } from '@guitar-shop/shared-types';
 import { registerDecorator, ValidationOptions, ValidationArguments } from 'class-validator';
+import { Size } from '../consts/size.const';
+import { Property } from '../enums/property.enum';
 import { getENVErrorMessage } from '../utils/error.util';
-import { Size } from '../utils/size.util';
 
 export const ValidateENVProp = (validationOptions?: ValidationOptions) => {
   return function (object, propertyName: string) {

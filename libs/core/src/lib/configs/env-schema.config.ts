@@ -1,5 +1,5 @@
-import { PortDefault } from '@guitar-shop/shared-types';
 import * as Joi from 'joi';
+import { PortDefault } from '../enums/utils.enum';
 
 export const apiEnvSchema = {
   API_PORT: Joi

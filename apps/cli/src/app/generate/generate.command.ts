@@ -1,5 +1,4 @@
-import { createMockGuitars } from '@guitar-shop/core';
-import { CLI, HELP_COMMAND_TEXT, IGuitar, IUser, UserEntity } from '@guitar-shop/shared-types';
+import { CLI, createMockGuitars, HELP_COMMAND_TEXT, IGuitar, IUser, UserEntity } from '@guitar-shop/core';
 import { INestApplication, Logger } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { Command, CommandRunner, Option} from 'nest-commander';
@@ -85,15 +84,14 @@ export class CliCommand extends CommandRunner {
 
     try {
       this.logger.log(`...inserting items that we've generated...`)
-      this.mockGuitars.forEach(async (gtr) => await this.prisma.guitar.upsert({ where: { id: gtr.id }, update: gtr, create: gtr }))
+      await this.prisma.guitar.createMany({ data: this.mockGuitars })
     } catch(err){
       this.logger.error('Failed.')
       return this.logger.error(err.message)
     }
 
     this.logger.log(`...all done!
-      There were ${countBefore} guitars in the database.
-      ${count > countBefore ? countBefore : count} were replaced${count > countBefore ? ` and ${count - countBefore} created. Total: ${countBefore + (count - countBefore)} guitars` : ''}.`)
+      ${count} new entries were created. There are ${countBefore + count} guitars in the database now.`)
   }
 
   async enableShutdownHooks(app: INestApplication) {

@@ -1,13 +1,13 @@
-import { Service, PortDefault } from "@guitar-shop/shared-types";
 import { DocumentBuilder } from "@nestjs/swagger";
+import { PortDefault, Service } from "../enums/utils.enum";
 
 const getSwaggerConfig = (title: string, desc: string, version: string) => new DocumentBuilder()
   .setTitle(title)
   .setDescription(desc)
   .setVersion(version)
+  .addTag(title)
   .addBearerAuth()
   .build()
-
 
 const getAPIConfig = (name: Service) => {
   const desc = `${name} service API`

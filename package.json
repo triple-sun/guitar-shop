@@ -29,11 +29,13 @@
     "handlebars": "^4.7.7",
     "mongoose": "^6.9.0",
     "nest-commander": "^3.4.0",
+    "nestjs-form-data": "^1.8.7",
     "nodemailer": "^6.9.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",
+    "swagger": "^0.7.5",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
@@ -50,6 +52,7 @@
     "@nrwl/workspace": "15.6.2",
     "@types/inquirer": "^9.0.3",
     "@types/jest": "28.1.1",
+    "@types/multer": "^1.4.7",
     "@types/node": "18.7.1",
     "@types/nodemailer": "^6.4.7",
     "@types/passport-jwt": "^3.0.8",

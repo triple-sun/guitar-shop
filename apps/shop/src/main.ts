@@ -3,8 +3,7 @@
  * This is only a minimal backend to get started.
  */
 
-import { getAppRunningString, ShopAPI } from '@guitar-shop/core';
-import { Prefix } from '@guitar-shop/shared-types';
+import { getAppRunningString, Prefix, ShopAPI } from '@guitar-shop/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';

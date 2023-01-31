@@ -1,7 +1,6 @@
 import { registerDecorator, ValidationOptions, ValidationArguments } from 'class-validator';
-import { Size } from '../utils/size.util';
+import { Size } from '../consts/size.const';
 import { getLengthErrorMessage } from '../utils/error.util';
-import { capitalize } from '../utils/common.util';
 
 export const ValidateLength = (validationOptions?: ValidationOptions) => {
   return (object, propertyName: string) => {
@@ -11,19 +10,15 @@ export const ValidateLength = (validationOptions?: ValidationOptions) => {
       options: validationOptions,
       validator: {
         validate(value: string, {property}: ValidationArguments) {
-          const prop = capitalize(property)
-
-          const result = (value.length >= Size[prop]?.Min) && (value.length <= Size[prop]?.Max)
+          const result = (value.length >= Size[property].Min) && (value.length <= Size[property].Max)
 
           return result
         },
         defaultMessage(args: ValidationArguments) {
-          const prop = capitalize(args.property)
+          const constraints = [Size[args.property]?.Min]
 
-          const constraints = [Size[prop].Min]
-
-          if ( Size[prop].Max ) {
-            constraints.push(Size[prop].Max)
+          if ( Size[args.property]?.Max ) {
+            constraints.push(Size[args.property].Max)
           }
 
           return getLengthErrorMessage({...args, constraints})

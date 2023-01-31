@@ -1,4 +1,4 @@
-import { IMessageProps } from "@guitar-shop/shared-types"
+import { IMessageProps } from "../interfaces/error-props.interface"
 import { capitalize } from "./common.util"
 
 export const getNotFoundMessage = (

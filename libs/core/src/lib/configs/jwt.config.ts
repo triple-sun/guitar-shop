@@ -1,6 +1,6 @@
-import { Service } from '@guitar-shop/shared-types';
 import { ConfigModule, ConfigService, registerAs } from '@nestjs/config';
 import { JwtModuleOptions, JwtModuleAsyncOptions } from '@nestjs/jwt';
+import { Service } from '../enums/utils.enum';
 
 export const jwtOptions = registerAs(Service.JWT, () => ({
   secret: process.env.JWT_SECRET,

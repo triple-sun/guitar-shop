@@ -1,6 +1,9 @@
+import { Property } from "@guitar-shop/core";
 import { PickType } from "@nestjs/swagger";
-import { UserDTO } from "./user.dto";
+import { CreateUserDto } from "./create-user.dto";
+
+const { Email, Password } = Property
 
 export class LoginUserDTO extends PickType(
-  UserDTO, ['email', 'password'] as const
+  CreateUserDto, [Email, Password] as const
 ) {}

@@ -1,6 +1,6 @@
-import { Service } from "@guitar-shop/shared-types";
 import { registerAs } from "@nestjs/config";
 import { IntersectionType } from "@nestjs/swagger";
+import { Service } from "../enums/utils.enum";
 import { validateEnv } from "../utils/common.util";
 import { prismaEnvSchema } from "./env-schema.config";
 import { APIEnvConfig, PrismaEnvConfig } from "./env.config";

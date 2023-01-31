@@ -2,7 +2,9 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { IUser, Property, Service } from '@guitar-shop/shared-types';
+import { Service } from '../enums/utils.enum';
+import { IUser } from '../interfaces/user.interface';
+import { Property } from '../enums/property.enum';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

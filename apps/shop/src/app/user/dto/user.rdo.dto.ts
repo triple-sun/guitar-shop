@@ -1,41 +1,36 @@
-import { IsArray, IsDate, IsEmail, IsInt, IsJWT, IsString } from 'class-validator';
-import { Expose, Transform, Type } from 'class-transformer';
-import { IUser, Property } from '@guitar-shop/shared-types';
-import { PickType } from '@nestjs/swagger';
+import { IsBoolean, IsEmail, IsInt, IsJWT, IsString } from 'class-validator';
+import { Expose } from 'class-transformer';
+import { IntersectionType, PickType } from '@nestjs/swagger';
+import { UserIdDTO } from './user-id.dto';
+import { Property } from '@guitar-shop/core';
+import { CreateUserDto } from './create-user.dto';
 
-export class UserRDO implements Pick<IUser, Property.PasswordHash | Property.Id | Property.Email> {
+const { Email, Name, IsAdmin, Id, Token } = Property
+
+export class UserRDO extends IntersectionType(
+  PickType(CreateUserDto, [Name, Email] as const),
+  UserIdDTO
+) {
   @Expose({ name: Property.Id})
   @IsInt()
-  public id: number
+  public [Id]: number
 
   @Expose()
   @IsEmail()
-  public email: string
+  public [Email]: string
 
   @Expose()
   @IsString()
-  public name: string
-
-  @Expose({ name: Property.CreatedAt })
-  @IsDate()
-  @Type(() => Date)
-  @Transform(({obj}) => obj.createdAt)
-  public registeredAt: Date;
+  public [Name]: string
 
   @Expose()
-  @IsArray()
-  public reviews: number[];
-
-  @Expose()
-  @IsInt()
-  public currentOrder: number;
-
-  public orders: number[]
+  @IsBoolean()
+  public [IsAdmin]: boolean
 }
 
-export class UserLoggedRDO extends PickType(UserRDO, ['email', 'id', 'name'] as const) {
+export class UserLoggedRDO extends PickType(UserRDO, [] as const) {
   @Expose()
   @IsJWT()
-  public token: string;
+  public [Token]: string;
 }
 

@@ -1,9 +1,9 @@
-import { Service } from "@guitar-shop/shared-types";
 import { MailerAsyncOptions } from "@nestjs-modules/mailer/dist/interfaces/mailer-async-options.interface";
 import { ConfigService, registerAs } from "@nestjs/config";
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter'
 
 import { join } from "path";
+import { Service } from "../enums/utils.enum";
 
 export const mailerOptions = registerAs(Service.Mailer, () => ({
   port: process.env.MAILER_PORT,

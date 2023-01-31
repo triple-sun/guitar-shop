@@ -1,6 +1,6 @@
-import { Service } from '@guitar-shop/shared-types';
 import { applyDecorators } from '@nestjs/common';
 import { ApiNotFoundResponse, ApiConflictResponse, ApiOkResponse, ApiResponseMetadata, ApiCreatedResponse } from '@nestjs/swagger';
+import { Service } from '../enums/utils.enum';
 
 export const ApiCommonResponses = (service: Service, {type, description}: ApiResponseMetadata) => {
   return applyDecorators(
