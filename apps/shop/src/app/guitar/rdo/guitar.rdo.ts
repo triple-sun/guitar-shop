@@ -1,4 +1,4 @@
-import { getApiProp, getAverage, IGuitar, Property } from "@guitar-shop/core";
+import { getAverage, IGuitar, Property } from "@guitar-shop/core";
 import { GuitarType, Review, StringCount } from "@prisma/client";
 import { Expose, Transform } from "class-transformer";
 import { ValidateIf } from "class-validator";

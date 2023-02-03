@@ -21,8 +21,7 @@ export class ReviewController {
 
   @Post(`:id`)
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @UseGuards(GuitarExistsGuard)
+  @UseGuards(GuitarExistsGuard, JwtAuthGuard)
   @ApiBody({type: CreateReviewDto})
   @ApiParam({name: 'id', type: Number})
   @ApiBody({type: CreateReviewDto})

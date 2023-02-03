@@ -1,11 +1,10 @@
 import { registerAs } from "@nestjs/config";
 import { IntersectionType } from "@nestjs/swagger";
-import { Service } from "../enums/utils.enum";
 import { validateEnv } from "../utils/common.util";
 import { prismaEnvSchema } from "./env-schema.config";
 import { APIEnvConfig, PrismaEnvConfig } from "./env.config";
 
-export const prismaOptions = registerAs(Service.Prisma, () => ({
+export const prismaOptions = registerAs('prisma', () => ({
   port: process.env.PRISMA_PORT,
   host: process.env.PRISMA_HOST,
   user: process.env.PRISMA_USER,

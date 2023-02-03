@@ -1,4 +1,3 @@
-import { Property } from '@guitar-shop/core';
 import { CanActivate, ExecutionContext, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { OrderRepository } from '../order.repository';
 
@@ -10,11 +9,12 @@ export class OrderExistsGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest()
+    console.log(request.params)
 
-    const order = await this.orderRepository.findOne(parseInt(request.params[Property.ItemId]));
+    const order = await this.orderRepository.findOne(parseInt(request.params.id))
 
     if (!order) {
-      throw new NotFoundException(`Order with id ${request.params[Property.ItemId]} was not found`)
+      throw new NotFoundException(`Order with id ${request.params.id} was not found`)
     }
 
     return !!order;

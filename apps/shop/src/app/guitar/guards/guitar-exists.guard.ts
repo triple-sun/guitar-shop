@@ -1,4 +1,3 @@
-import { Property } from '@guitar-shop/core';
 import { CanActivate, ExecutionContext, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { GuitarRepository } from '../guitar.repository';
 

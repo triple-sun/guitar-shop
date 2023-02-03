@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
-import { CliCommand } from './generate/generate.command';
+import { ConfigModule } from '@nestjs/config';
+import { cliConfig } from '../config/cli.config';
+import { CliCommand } from './generate/cli.command';
 
 @Module({
-  imports: [],
+  imports: [ConfigModule.forRoot(cliConfig)],
   controllers: [],
-  providers: [CliCommand],
+  providers: [
+    CliCommand
+  ],
 })
 export class AppModule {}

@@ -16,5 +16,5 @@ export enum ENVError {
 }
 export enum EnvFilePath {
   Shop = 'apps/shop/.env',
-  Notify = 'environments/notify.env',
+  Notify = 'apps/notify/.env',
 }

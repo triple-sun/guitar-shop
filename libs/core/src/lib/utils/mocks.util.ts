@@ -13,8 +13,8 @@ export const createGuitar = (sku: string): IGuitar => ({
   [CreatedAt]: faker.date.recent(100),
   [UpdatedAt]: faker.date.recent(730),
   [Photo]: `/markup/img/content/catalog-product-${faker.datatype.number({min: 0, max: 8})}.png`,
-  [Strings]: ApiExample[Strings],
-  [Type]:  ApiExample[Type],
+  [Strings]: ApiExample.Comm[Strings],
+  [Type]:  ApiExample.Comm[Type],
   [Price]: ApiExample.Num[Price]
 })
 

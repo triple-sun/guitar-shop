@@ -1,7 +1,7 @@
-import { User } from "@prisma/client";
+import { Order as TOrder, Review, User } from "@prisma/client";
 import { Property } from "../enums/property.enum";
 
-const { Id: Id, Email, Name, IsAdmin, Password, PasswordHash, Reviews, Items: OrderItems, UserId } = Property
+const { Id, Email, Name, IsAdmin, Password, PasswordHash, Reviews, Order, UserId } = Property
 
 export interface IUser extends Partial<User> {
   [Id]?: number;
@@ -11,6 +11,6 @@ export interface IUser extends Partial<User> {
   [IsAdmin]?: boolean
   [Password]?: string;
   [PasswordHash]?: string;
-  [Reviews]?: number[];
-  [OrderItems]?: number[]
+  [Reviews]?: Review[];
+  [Order]?: TOrder[];
 }

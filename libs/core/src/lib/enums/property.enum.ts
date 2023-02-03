@@ -31,5 +31,12 @@ export enum Property {
   OrderId = 'orderId',
   User = 'user',
   Item = 'item',
-  Order = 'order'
+  Order = 'order',
+  Orders = 'orders',
+  OrderIds = 'orderIds',
+  Page = 'page',
+  MinPrice = 'minPrice',
+  MaxPrice = 'maxPrice',
+  StartDate = 'startDate',
+  EndDate = 'endDate'
 }

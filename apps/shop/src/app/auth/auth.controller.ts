@@ -52,8 +52,8 @@ export class AuthController {
   @ApiBody({type: LoginUserDTO})
   async loginUser(
     @Body() dto: LoginUserDTO,
-    @Body() { name, userId }: VerifyUserDto
+    @Body() { name, userId, isAdmin }: VerifyUserDto
   ) {
-    return await this.authService.loginUser(userId, dto.email, name)
+    return await this.authService.loginUser(userId, dto.email, name, isAdmin)
   }
 }

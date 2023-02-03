@@ -3,30 +3,30 @@ import { ConfigService, registerAs } from "@nestjs/config";
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter'
 
 import { join } from "path";
-import { Service } from "../enums/utils.enum";
 
-export const mailerOptions = registerAs(Service.Mailer, () => ({
+export const mailerOptions = registerAs('mailer', () => ({
   port: process.env.MAILER_PORT,
   host: process.env.MAILER_HOST,
   user: process.env.MAILER_USER,
   pass: process.env.MAILER_PASS,
-  from: process.env.MAILER_FROM
+  from: process.env.MAILER_FROM,
+  login: process.env.LOGIN_LINK
 }))
 
 export const getMailerConfig = (): MailerAsyncOptions => ({
   useFactory: async (configService: ConfigService) => {
     return {
       transport: {
-        host: configService.get<string>(`${Service.Mailer}.host`),
-        port: configService.get<number>(`${Service.Mailer}.port`),
+        host: configService.get<string>('mailer.host'),
+        port: configService.get<number>('mailer.port'),
         secure: false,
         auth: {
-          user: configService.get<string>(`${Service.Mailer}.user`),
-          pass: configService.get<string>(`${Service.Mailer}.pass`)
+          user: configService.get<string>('mailer.user'),
+          pass: configService.get<string>('mailer.pass')
         }
       },
       defaults: {
-        from: `${configService.get<number>(`${Service.Mailer}.from`)}`,
+        from: `${configService.get<number>('mailer.from')}`,
       },
       template: {
         dir: join(__dirname, './assets/templates'),

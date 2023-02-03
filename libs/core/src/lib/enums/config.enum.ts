@@ -1,8 +1,8 @@
 export enum MailConfig {
-  NewPostsSubject = 'New posts in your feed',
-  NewSubSubject = '',
-  NewPostsTemplate = 'new-posts',
-  NewSubTemplate = 'new-sub'
+  NewOrderSubject = 'New order',
+  NewUserSubject = 'New user registered',
+  NewOrderTemplate = 'new-order',
+  NewUserTemplate = 'new-user'
 }
 
 export enum UsersConfig {

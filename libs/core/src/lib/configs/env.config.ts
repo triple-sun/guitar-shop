@@ -47,3 +47,31 @@ export class JWTEnvConfig {
   @ValidateENVProp()
   public JWT_SECRET: string;
 }
+
+export class RMQEnvConfig {
+  @ValidateENVProp()
+  public RMQ_USER: string;
+
+  @ValidateENVProp()
+  public RMQ_PASS: string;
+
+  @ValidateENVProp()
+  public RMQ_HOST: string;
+
+  @ValidateENVProp()
+  public RMQ_QUEUE: string;
+
+  @ValidateENVProp()
+  public RMQ_EXCHANGE: string;
+}
+
+export class CliEnvConfig {
+  @ValidateENVProp()
+  public ADMIN_NAME: string;
+
+  @ValidateENVProp()
+  public ADMIN_PASS: string;
+
+  @ValidateENVProp()
+  public ADMIN_EMAIL: string;
+}

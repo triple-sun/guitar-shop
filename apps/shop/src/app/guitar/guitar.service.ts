@@ -1,7 +1,7 @@
 import { GuitarEntity, Property } from '@guitar-shop/core';
 import { Injectable } from '@nestjs/common';
 import { CreateGuitarDto, CreateGuitarQuery } from './dto/create-guitar.dto';
-import { GuitarIdDto } from './dto/guitar-id.dto';
+import { GuitarQueryDto } from './dto/guitar.query.dto';
 import { UpdateGuitarDto } from './dto/update-guitar.dto';
 import { GuitarRepository } from './guitar.repository';
 
@@ -21,7 +21,7 @@ export class GuitarService {
     );
   }
 
-  async findMany(page = 1) {
+  async findMany({page}: GuitarQueryDto) {
     return await this.guitarRepository.findMany(page)
   }
 

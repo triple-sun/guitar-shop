@@ -12,14 +12,13 @@ import {
 import { GuitarService } from './guitar.service';
 import { CreateGuitarDto, CreateGuitarQuery } from './dto/create-guitar.dto';
 import { UpdateGuitarDto } from './dto/update-guitar.dto';
-import { Property, Prefix, fillObject } from '@guitar-shop/core';
-import { ApiBody, ApiConsumes, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Prefix, fillObject, JwtAuthGuard, IsAdminGuard } from '@guitar-shop/core';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiParam, ApiTags } from '@nestjs/swagger';
 import { GuitarExistsGuard } from './guards/guitar-exists.guard';
 import { GuitarIdDto } from './dto/guitar-id.dto';
 import { FormDataRequest } from 'nestjs-form-data';
 import { GuitarRdo } from './rdo/guitar.rdo';
-
-const { Id: ItemId } = Property
+import { GuitarQueryDto } from './dto/guitar.query.dto';
 
 @Controller(Prefix.Guitar)
 @ApiTags(Prefix.Guitar)
@@ -27,6 +26,8 @@ export class GuitarController {
   constructor(private readonly guitarService: GuitarService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, IsAdminGuard)
+  @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   @ApiBody({type: CreateGuitarDto})
   @FormDataRequest()
@@ -38,8 +39,10 @@ export class GuitarController {
   }
 
   @Get()
-  findAll() {
-    return this.guitarService.findMany();
+  findAll(
+    @Query() query: GuitarQueryDto
+  ) {
+    return this.guitarService.findMany(query);
   }
 
   @Get(':id')
@@ -51,8 +54,8 @@ export class GuitarController {
   }
 
   @Patch(`:id`)
-  @UseGuards(GuitarExistsGuard)
-
+  @ApiBearerAuth()
+  @UseGuards(GuitarExistsGuard, JwtAuthGuard, IsAdminGuard)
   @ApiBody({type: UpdateGuitarDto})
   update(
     @Param('id') {itemId}: GuitarIdDto,
@@ -63,7 +66,8 @@ export class GuitarController {
 
   @Delete(`:id`)
   @ApiParam({name: 'id', type: GuitarIdDto})
-  @UseGuards(GuitarExistsGuard)
+  @ApiBearerAuth()
+  @UseGuards(GuitarExistsGuard, JwtAuthGuard, IsAdminGuard)
   remove(
     @Param('id') guitarId: number
   ) {

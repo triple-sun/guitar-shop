@@ -7,6 +7,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { shopConfig } from '../config/shop.config';
 import { OrderModule } from './order/order.module';
+import { NotifyModule } from './notify/notify.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { OrderModule } from './order/order.module';
     GuitarModule,
     PrismaModule,
     OrderModule,
+    NotifyModule,
   ],
   controllers: [],
   providers: [],

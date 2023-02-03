@@ -72,3 +72,16 @@ export const rmqEnvSchema = {
     .string()
     .required()
 }
+
+export const cliEnvSchema = {
+  ADMIN_NAME: Joi
+    .string()
+    .required(),
+  ADMIN_PASS: Joi
+    .string()
+    .required(),
+  ADMIN_EMAIL: Joi
+    .string()
+    .email()
+    .required()
+}

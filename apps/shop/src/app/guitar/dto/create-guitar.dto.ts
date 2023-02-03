@@ -1,7 +1,7 @@
 import { ApiProp, Entity, IMAGE_MIME_TYPES, Property, Size, ValidateLength } from "@guitar-shop/core";
 import { ApiProperty, } from "@nestjs/swagger";
 import { GuitarType, StringCount } from "@prisma/client";
-import { Expose, Transform } from "class-transformer";
+import { Expose } from "class-transformer";
 import { IsDefined, IsIn, IsInt, IsPositive, Max, Min } from "class-validator";
 import { FileSystemStoredFile, HasMimeType, IsFile } from "nestjs-form-data";
 

@@ -1,5 +1,6 @@
-import { CLI, createMockGuitars, HELP_COMMAND_TEXT, IGuitar, IUser, UserEntity } from '@guitar-shop/core';
+import { CLI, createMockGuitars, getAdminConfig, HELP_COMMAND_TEXT, IGuitar, UserEntity } from '@guitar-shop/core';
 import { INestApplication, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { PrismaClient } from '@prisma/client';
 import { Command, CommandRunner, Option} from 'nest-commander';
 
@@ -14,10 +15,14 @@ type CliOptions = { generate: boolean, help: boolean }
 })
 export class CliCommand extends CommandRunner {
   private readonly logger = new Logger(CLI.Cli)
-  private readonly admin: IUser = { name: 'admin', password: 'admin', email: 'admin@guitar-shop.local', isAdmin: true }
-  private readonly adminEntity: UserEntity = new UserEntity(this.admin)
   private mockGuitars: IGuitar[]
   private prisma: PrismaClient
+
+  constructor(
+    private readonly configService: ConfigService
+  ) {
+    super()
+  }
 
   @Option({
     flags: `--g, --${CLI.Generate}`,
@@ -54,6 +59,9 @@ export class CliCommand extends CommandRunner {
     const [n, connection] = args
     const count = parseInt(n, 10)
 
+    const admin = getAdminConfig(this.configService)
+    const adminEntity = new UserEntity(admin);
+
     try {
       this.logger.log(`Generating ${count} new items...`)
       this.mockGuitars = createMockGuitars(count);
@@ -75,8 +83,8 @@ export class CliCommand extends CommandRunner {
 
     try {
       this.logger.log(`...setting up an admininstrator account...`)
-      await this.adminEntity.setPassword(this.admin.password)
-      await this.prisma.user.upsert({ where: { id: 1 }, update: this.adminEntity.toObject(), create: this.adminEntity.toObject() })
+      await adminEntity.setPassword(admin.password)
+      await this.prisma.user.upsert({ where: { id: 1 }, update: adminEntity.toObject(), create: adminEntity.toObject() })
     } catch(err) {
       this.logger.error('Failed.')
       return this.logger.error(err.message)

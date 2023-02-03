@@ -7,7 +7,7 @@ import { TApiPropArgs } from "../types/api-prop-args.type";
 import { getApiProp } from "../utils/api.util";
 import { Size } from "./size.const";
 
-const { Id, Email, Pros, Cons, Comment, Rating, Description, Model, UserId, OrderId, ItemId, Password, Price, Name, Sku, Strings, Type, ItemIds } = Property
+const { Id, Email, Pros, Cons, Comment, Rating, Description, Model, UserId, OrderId, ItemId, Password, Price, Name, Sku, Strings, Type, ItemIds, Page } = Property
 const { Num, Str, Comm } = PropType
 
 export const ApiProp = {
@@ -31,15 +31,17 @@ export const StringNumberToCount = {
 }
 
 export const ApiExample = {
-  [Comm]:{
+  [Comm]: {
     [Email]: faker.internet.email(),
     [Type]:  GuitarType[faker.helpers.arrayElement(Object.keys(GuitarType))],
-    [Strings]: StringCount[faker.helpers.arrayElement(Object.keys(StringCount))]},
+    [Strings]: StringCount[faker.helpers.arrayElement(Object.keys(StringCount))],
     [ItemIds]: faker.helpers.uniqueArray(() => faker.datatype.number({max: 10}), 5),
     [Id]: 3,
     [UserId]: 3,
     [ItemId]: 3,
     [OrderId]: 3,
+    [Page]: 1,
+  },
   [Num]: {
     [Price]: faker.datatype.number({min: Size[Price].Min, max: Size[Price].Max}),
     [Rating]: faker.datatype.number({min: Size[Rating].Min, max: Size[Rating].Max}),
@@ -57,3 +59,5 @@ export const ApiExample = {
 }
 
 export const IMAGE_MIME_TYPES = ['image/jpeg', 'image/png']
+
+export const RMQ_SERVICE = Symbol('RMQ_SERVICE')
