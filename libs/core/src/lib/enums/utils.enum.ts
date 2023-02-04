@@ -35,3 +35,20 @@ export enum PropType {
   Num = 'Num',
   Comm = 'Comm'
 }
+
+export enum SortOrder {
+  Asc = 'asc',
+  Desc = 'desc'
+}
+
+export enum ItemSortBy {
+  Date = 'createdAt',
+  Price = 'price',
+  Reviews = 'reviews'
+ }
+
+ export enum Limit {
+  Items = 9,
+  Reviews = 50,
+  Orders = 6
+ }

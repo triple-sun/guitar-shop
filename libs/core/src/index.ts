@@ -9,7 +9,7 @@ export * from './lib/configs/mailer.config'
 export * from './lib/configs/prisma.config'
 export * from './lib/configs/rmq.config'
 
-export * from './lib/consts/api.const'
+export * from './lib/consts/util.const'
 export * from './lib/consts/cli.const'
 export * from './lib/consts/size.const'
 
@@ -49,13 +49,14 @@ export * from './lib/guards/is-admin.guard'
 export * from './lib/guards/jwt-auth.guard'
 export * from './lib/strategies/jwt.strategy'
 
-export * from './lib/types/api-prop-args.type'
+export * from './lib/types/api-prop.type'
 export * from './lib/types/order-item.type'
 
+export * from './lib/utils/api.util'
 export * from './lib/utils/common.util'
 export * from './lib/utils/error.util'
+export * from './lib/utils/info.utils'
 export * from './lib/utils/mocks.util'
-export * from './lib/utils/api.util'
 
 
 

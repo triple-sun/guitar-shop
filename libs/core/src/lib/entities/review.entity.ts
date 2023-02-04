@@ -24,8 +24,8 @@ export class ReviewEntity implements IEntity<IReview> {
     this[Pros] = review[Pros];
     this[Cons] = review[Cons];
     this[Comment] = review[Comment];
-    this[Rating] = review[Rating]
-    this[UserId] = review[UserId]
-    this[ItemId] = review[ItemId]
+    this[Rating] = review[Rating];
+    this[UserId] = review[UserId];
+    this[ItemId] = review[ItemId];
   }
 }

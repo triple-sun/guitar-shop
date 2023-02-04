@@ -26,7 +26,6 @@ export class UserEntity implements IEntity<IUser> {
   }
 
   public async comparePassword(password: string): Promise<boolean> {
-    console.log({password}, this[PasswordHash])
     return compare(password, this[PasswordHash]);
   }
 

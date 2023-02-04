@@ -1,33 +1,30 @@
 import { faker } from '@faker-js/faker'
-import { ApiExample } from '../consts/api.const'
-import { Size } from '../consts/size.const'
 import { Property } from '../enums/property.enum'
 import { IGuitar } from '../interfaces/guitar.interface'
+import { getCommonApiExamples, getNumApiExamples, getStrApiExamples } from './api.util'
 
 const { Model, Description, Type, Photo, Sku, Strings, Price, CreatedAt, UpdatedAt } = Property
 
-export const createGuitar = (sku: string): IGuitar => ({
+export const createGuitar = (sku: string): IGuitar => {
+  const createdAt = faker.date.recent(100)
+  const commMocks = getCommonApiExamples()
+  const strMocks = getStrApiExamples()
+  const numMocks = getNumApiExamples()
+
+  return {
   [Sku]: sku,
-  [Description]: ApiExample.Str[Description],
-  [Model]: ApiExample.Str[Model],
-  [CreatedAt]: faker.date.recent(100),
-  [UpdatedAt]: faker.date.recent(730),
-  [Photo]: `/markup/img/content/catalog-product-${faker.datatype.number({min: 0, max: 8})}.png`,
-  [Strings]: ApiExample.Comm[Strings],
-  [Type]:  ApiExample.Comm[Type],
-  [Price]: ApiExample.Num[Price]
-})
+  [Description]: strMocks[Description],
+  [Model]: strMocks[Model],
+  [CreatedAt]: createdAt,
+  [UpdatedAt]: faker.date.between(createdAt, new Date()),
+  [Photo]: commMocks[Photo],
+  [Strings]: commMocks[Strings],
+  [Type]:  commMocks[Type],
+  [Price]: numMocks[Price]
+}}
 
 export const createMockGuitars = (count: number): IGuitar[] => {
-    const skus = faker.helpers.uniqueArray(
-      () => faker.random.alphaNumeric(
-        faker.datatype.number({
-          min: Size[Sku].Min,
-          max: Size[Sku].Max
-        })
-      ),
-      count
-    )
+    const skus = faker.helpers.uniqueArray<string>((() => getStrApiExamples()[Sku]), count)
 
     return skus.map((sku) => createGuitar(sku))
 }

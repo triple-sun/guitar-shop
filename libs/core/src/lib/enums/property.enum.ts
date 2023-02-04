@@ -11,6 +11,7 @@ export enum Property {
   Count = 'count',
   TotalRating = 'totalRating',
   Price = 'price',
+  TotalPrice = 'totalPrice',
   Name = 'name',
   Email = 'email',
   IsAdmin = 'isAdmin',
@@ -38,5 +39,8 @@ export enum Property {
   MinPrice = 'minPrice',
   MaxPrice = 'maxPrice',
   StartDate = 'startDate',
-  EndDate = 'endDate'
+  EndDate = 'endDate',
+  OrderPrice = 'orderPrice',
+  SortBy = 'SortBy',
+  SortOrder = 'SortOrder'
 }

@@ -2,37 +2,37 @@ import { IMessageProps } from "../interfaces/error-props.interface"
 import { capitalize } from "./common.util"
 
 export const getNotFoundMessage = (
-({service, property}: IMessageProps) => ((
+({entity, property}: IMessageProps) => ((
     value?: string | number,
     args?: IMessageProps
   ) => (`
-    ${capitalize(service  || args.service
-      ? `${service ?? args.service} with`
+    ${capitalize(entity  || args?.entity
+      ? `${entity ?? args?.entity} with`
       : ''
     )}
-    ${(property || args.property)
-      ? ` ${property ?? args.property}:`
+    ${(property || args?.property)
+      ? ` ${property ?? args?.property}:`
       : ''
     } value ${
-        value ?? args.value
+        value ?? args?.value
     } not found.
   `))
 )
 
 export const getExistsMessage = (
-({service, property}: IMessageProps) => ((
+({entity, property}: IMessageProps) => ((
     value: string | number,
     args?: IMessageProps
-  ) => (`${capitalize(service ?? args.service ?? '')} ${property || args.property ? `with ${property ?? args.property}` : ''} ${value ?? args.value} already exists.`))
+  ) => (`${capitalize(entity ?? args?.entity ?? '')} ${property || args?.property ? `with ${property ?? args?.property}` : ''} ${value ?? args?.value} already exists.`))
 )
 
 export const getInvalidMessage = (
-({service, property}: IMessageProps) => ((
+({entity: service, property}: IMessageProps) => ((
     args?: IMessageProps
   ) => (`
-    ${args.value} is not valid
-    ${property || args.property
-      ? ` for property ${property ?? args.property}`
+    ${args?.value} is not valid
+    ${property || args?.property
+      ? ` for property ${property ?? args?.property}`
       : ''}
     ${service ? ` of ${service}` : '.'}
   `))

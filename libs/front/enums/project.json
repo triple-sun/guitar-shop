@@ -1,0 +1,16 @@
+{
+  "name": "front-enums",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/front/enums/src",
+  "projectType": "library",
+  "tags": ["frontend"],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/front/enums/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  }
+}

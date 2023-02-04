@@ -10,8 +10,8 @@ export interface IReview extends Partial<Review> {
   [Cons]: string
   [Comment]: string
   [Rating]: number
-  [User]?: TUser
+  [User]?: Partial<TUser>
   [UserId]?: number;
   [ItemId]?: number;
-  [Item]?: Guitar
+  [Item]?: Partial<Guitar>
 }

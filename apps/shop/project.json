@@ -7,39 +7,56 @@
     "build": {
       "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
-        "target": "node",
-        "compiler": "tsc",
+        "compiler": "babel",
         "outputPath": "dist/apps/shop",
-        "main": "apps/shop/src/main.ts",
+        "index": "apps/shop/src/assets/index.html",
+        "baseHref": "/",
+        "main": "apps/shop/src/main.tsx",
         "tsConfig": "apps/shop/tsconfig.app.json",
-       "transformers": [{
-          "name": "@nestjs/swagger/plugin",
-          "options": {
-            "classValidatorShim": true
-          }
-        }],
-        "assets": [
-          "apps/shop/src/assets"
-        ],
-        "generatePackageJson": true
+        "assets": ["apps/shop/src/assets/"],
+        "scripts": [],
+        "webpackConfig": "apps/shop/webpack.config.js",
+        "externalDependencies": "all"
       },
       "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/shop/src/environments/environment.ts",
+              "with": "apps/shop/src/environments/environment.prod.ts"
+            }
+          ],
           "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
           "extractLicenses": true,
-          "inspect": false
+          "vendorChunk": false
         }
       }
     },
     "serve": {
-      "executor": "@nrwl/js:node",
+      "executor": "@nrwl/webpack:dev-server",
+      "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "shop:build"
+        "buildTarget": "shop:build",
+        "hmr": true
       },
       "configurations": {
+        "development": {
+          "buildTarget": "shop:build:development"
+        },
         "production": {
-          "buildTarget": "shop:build:production"
+          "buildTarget": "shop:build:production",
+          "hmr": false
         }
       }
     },
@@ -47,52 +64,9 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/shop/**/*.ts"]
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "apps/shop/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      }
-    },
-    "db-generate": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npx prisma generate --schema= ./prisma/schema.prisma",
-        "cwd": "apps/shop"
-      }
-    },
-    "db-validate": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npx prisma validate --schema ./prisma/schema.prisma",
-        "cwd": "apps/shop"
-
-      }
-    },
-    "db-migrate": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npx prisma migrate dev --schema ./prisma/schema.prisma --name initial --skip-generate --skip-seed",
-        "cwd": "apps/shop"
-      }
-    },
-    "db-reset": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npx prisma migrate reset --schema ./prisma/schema.prisma --force --skip-generate --skip-seed",
-        "cwd": "apps/shop"
+        "lintFilePatterns": ["apps/shop/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },
-  "tags": []
+  "tags": ["frontend"]
 }

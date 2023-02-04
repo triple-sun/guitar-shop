@@ -1,5 +1,5 @@
 import { registerDecorator, ValidationOptions, ValidationArguments } from 'class-validator';
-import dayjs = require('dayjs');
+import { isAfter, isBefore } from 'date-fns'
 import { Property } from '../enums/property.enum';
 
 export const ValidateOrderPriceFilter = (validationOptions?: ValidationOptions) => {
@@ -37,12 +37,13 @@ export const ValidateOrderDateFilter = (validationOptions?: ValidationOptions) =
       propertyName: propertyName,
       options: validationOptions,
       validator: {
-        validate(value: string, {property, object}: ValidationArguments) {
+        validate(value: Date, {property, object}: ValidationArguments) {
+          const today = new Date();
           switch (property) {
-            case (Property.StartDate):
-              return object[Property.EndDate] ? dayjs(value).isBefore(dayjs(object[Property.EndDate])) : dayjs(value).isBefore(new Date)
             case (Property.EndDate):
-              return object[Property.StartDate] ? dayjs(value).isAfter(dayjs(object[Property.StartDate])) : dayjs(value).isBefore(new Date)
+              return object[Property.StartDate] ? isAfter(value, object[Property.StartDate]) : isBefore(value, today)
+            case (Property.StartDate):
+              return object[Property.EndDate] ? isBefore(value, object[Property.EndDate]) : isBefore(value, today)
             }
           },
         defaultMessage({property}: ValidationArguments) {

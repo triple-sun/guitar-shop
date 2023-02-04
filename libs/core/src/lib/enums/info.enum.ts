@@ -17,3 +17,4 @@ export enum Info {
   ReviewController = 'Registering routes for ReviewController…',
   UserController = 'Registering routes for UserController…'
 }
+

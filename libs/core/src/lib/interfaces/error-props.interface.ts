@@ -1,10 +1,10 @@
 import { ValidationArguments } from "class-validator";
 import { ErrorType } from "../enums/error-type.enum";
 import { Property } from "../enums/property.enum";
-import { Service } from "../enums/utils.enum";
+import { Entity } from "../enums/utils.enum";
 
-export interface IMessageProps extends Partial<ValidationArguments> {
+export interface IMessageProps extends Partial<Pick<ValidationArguments, 'constraints' | 'value' | 'targetName'>> {
   type?: ErrorType,
-  service?: Service,
-  property?: Property | string
+  entity?: Entity,
+  property: Property | string
 }

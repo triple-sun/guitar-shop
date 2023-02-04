@@ -1,0 +1,16 @@
+{
+  "name": "front-services",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/front/services/src",
+  "projectType": "library",
+  "tags": ["frontend"],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/front/services/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  }
+}

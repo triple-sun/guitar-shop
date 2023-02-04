@@ -10,12 +10,19 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": ["es2017", "dom", "esnext", "DOM.Iterable"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@guitar-shop/core": ["libs/core/src/index.ts"]
+      "@guitar-shop/core": ["libs/core/src/index.ts"],
+      "@guitar-shop/front/components": ["libs/front/components/src/index.ts"],
+      "@guitar-shop/front/enums": ["libs/front/enums/src/index.ts"],
+      "@guitar-shop/front/hooks": ["libs/front/hooks/src/index.ts"],
+      "@guitar-shop/front/services": ["libs/front/services/src/index.ts"],
+      "@guitar-shop/front/store": ["libs/front/store/src/index.ts"],
+      "@guitar-shop/front/types": ["libs/front/types/src/index.ts"],
+      "@guitar-shop/front/utils": ["libs/front/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
