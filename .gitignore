@@ -45,3 +45,4 @@ migrations
 .env
 thunder-tests
 upload
+/markup

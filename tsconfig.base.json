@@ -19,6 +19,7 @@
       "@guitar-shop/front/components": ["libs/front/components/src/index.ts"],
       "@guitar-shop/front/enums": ["libs/front/enums/src/index.ts"],
       "@guitar-shop/front/hooks": ["libs/front/hooks/src/index.ts"],
+      "@guitar-shop/front/pages": ["libs/front/pages/src/index.ts"],
       "@guitar-shop/front/services": ["libs/front/services/src/index.ts"],
       "@guitar-shop/front/store": ["libs/front/store/src/index.ts"],
       "@guitar-shop/front/types": ["libs/front/types/src/index.ts"],

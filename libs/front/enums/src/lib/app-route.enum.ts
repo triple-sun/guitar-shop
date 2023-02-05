@@ -1,12 +1,11 @@
 export enum EAppRoute {
-  AddReview = '/items/:id/review',
+  AddReview = '/review',
   Login = '/login',
   Register = '/register',
   Cart = '/cart',
   Main = '/',
-  Item = '/items/:id',
+  Items = '/items',
   Orders = '/orders',
-  Order = '/order/:id',
   NonExistent = '/non-existent-route',
   NotFound = '*',
 }

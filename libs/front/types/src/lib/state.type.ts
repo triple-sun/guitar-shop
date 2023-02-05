@@ -11,6 +11,7 @@ export type TCurrentItemState = TData<TCurrentItemData> & {
 export type TUserState = {
   userInfo: TUser | null;
   authStatus: EAuthStatus;
+  cart: TGuitar[]
 };
 
 export type TItemsState = TData<TGuitar[]> & {

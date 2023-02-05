@@ -19,7 +19,9 @@ export enum EChangeAction {
 
 export enum EUserAction {
   SetAuth = 'user/setAuthorization',
-  CheckAuth = 'user/checkAuthorization',
+  VerifyUser = 'user/verifyUser',
   Login = 'user/login',
   Logout = 'user/logout',
+  AddToCart = 'user/addToCart',
+  RemoveFromCart = 'user/removeFromCart'
 }

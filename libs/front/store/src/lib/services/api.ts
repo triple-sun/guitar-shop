@@ -30,7 +30,7 @@ export const createApi = (): AxiosInstance => {
     const token = getToken();
 
     if (token && config.headers) {
-      config.headers.Authorization = `Bearer: ${token};`;
+      config.headers.Authorization = `Bearer ${token}`;
     }
 
     return config;
@@ -49,5 +49,3 @@ export const createApi = (): AxiosInstance => {
 
   return api;
 };
-
-export const api = createApi()

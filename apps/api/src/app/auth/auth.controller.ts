@@ -5,11 +5,9 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { LoginUserDTO } from '../user/dto/login-user.dto';
 import {
-  ApiAuth,
-  Entity,
   JwtAuthGuard,
   Path,
   Prefix,
@@ -18,7 +16,7 @@ import {
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { EmailAlreadyExistsGuard } from './guards/email-already-exists.guard';
 import { AuthService } from './auth.service';
-import { UserRDO } from './rdo/user.rdo.dto';
+import { UserLoggedRdo, UserRdo } from './rdo/user.rdo';
 import { UserAuthDto } from '../user/dto/user-auth.dto';
 import { UserExistsGuard } from './guards/user-exists.guard';
 import { UserLoginGuard } from './guards/login.guard';
@@ -31,14 +29,14 @@ export class AuthController {
   @Post()
   @ApiBody({ type: CreateUserDto })
   @UseGuards(EmailAlreadyExistsGuard)
-  @ApiCreatedResponse({ type: UserRDO })
+  @ApiCreatedResponse({ type: UserRdo })
   registerUser(@Body() dto: CreateUserDto) {
    return this.authService.registerUser(dto)
   }
 
   @Get(Path.Verify)
-  @ApiAuth(Entity.User)
   @UseGuards(JwtAuthGuard)
+  @ApiOkResponse({type: UserRdo})
   @ApiBearerAuth()
   verifyUser(
     @User() {userId}: UserAuthDto
@@ -48,6 +46,7 @@ export class AuthController {
 
   @Post(Path.Login)
   @UseGuards(UserExistsGuard, UserLoginGuard)
+  @ApiOkResponse({type: UserLoggedRdo})
   @ApiBody({ type: LoginUserDTO })
   loginUser(
     @Body() dto: LoginUserDTO

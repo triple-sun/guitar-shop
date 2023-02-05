@@ -7,7 +7,7 @@ import { CreateUserDto } from '../../user/dto/create-user.dto';
 
 const { Email, Name, IsAdmin, Id: Id, Token } = Property;
 
-export class UserRDO extends IntersectionType(
+export class UserRdo extends IntersectionType(
   PickType(CreateUserDto, [Name, Email] as const),
   UserIdDto
 ) {
@@ -28,7 +28,7 @@ export class UserRDO extends IntersectionType(
   public [IsAdmin]: boolean;
 }
 
-export class UserLoggedRDO extends PickType(UserRDO, [] as const) {
+export class UserLoggedRdo extends PickType(UserRdo, [] as const) {
   @Expose()
   @IsJWT()
   public [Token]: string;

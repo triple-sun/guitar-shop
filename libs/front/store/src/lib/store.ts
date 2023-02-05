@@ -10,12 +10,14 @@ export const rootReducer = combineReducers({
   [ESlice.Items]: items.reducer
 });
 
+export const api = createApi()
+
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {
-        extraArgument: createApi(),
+        extraArgument: api,
       },
     }).concat(redirect),
 });

@@ -16,6 +16,7 @@
         "main": "apps/shop/src/main.tsx",
         "tsConfig": "apps/shop/tsconfig.app.json",
         "assets": ["apps/shop/src/assets/"],
+        "styles": [],
         "scripts": [],
         "webpackConfig": "apps/shop/webpack.config.js",
         "externalDependencies": "all"
