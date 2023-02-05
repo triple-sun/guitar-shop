@@ -1,27 +1,41 @@
-export enum EFetchAction {
+export enum AppAction {
   FetchItems = 'data/fetchItems',
-  FetchCurrentItem = 'data/fetchCurrentMovieData',
+  FetchSingleItem = 'data/fetchSingleItem',
   FetchUserInfo = 'data/fetchUserInfo',
-  FetchOrders = 'data/fetchFavorites',
-}
-
-export enum EChangeAction {
-  AddReview = 'review/addReview',
-  AddToCart = 'items/addToCart',
-  ToggleStringCount = 'items/toggleStringCount',
-  ToggleGuitarType = 'items/toggleGuitarType',
-  SetSort = 'items/setSort',
-  SetMinPrice = 'items/setPriceMin',
-  SetMaxPrice = 'items/setPriceMax',
-  SetPage = 'items/setPage',
+  FetchOrders = 'data/fetchOrders',
   RedirectToRoute = 'app/redirectToRoute',
 }
 
-export enum EUserAction {
-  SetAuth = 'user/setAuthorization',
-  VerifyUser = 'user/verifyUser',
+export enum ItemAction {
+  AddReview = 'review/addReview',
+  ToggleStringCount = 'items/toggleStringCount',
+  ToggleGuitarType = 'items/toggleGuitarType',
+  SetSort = 'items/setSort',
+  SetSortOrder = 'items/setSortOrder',
+  SetMinPrice = 'items/setPriceMin',
+  SetMaxPrice = 'items/setPriceMax',
+  SetPage = 'items/setPage',
+  ResetFilters = 'items/resetFilters',
+  ResetSort = 'item/resetSort'
+}
+
+export enum UserAction {
+  SetAuthAction = 'user/setAuth',
   Login = 'user/login',
   Logout = 'user/logout',
-  AddToCart = 'user/addToCart',
-  RemoveFromCart = 'user/removeFromCart'
 }
+
+export enum CartAction {
+  AddToCart = 'cart/addToCart',
+  RemoveFromCart = 'cart/removeFromCart',
+  DecreaseCount = 'cart/decreaseCount',
+  IncreaseCount = 'cart/increaseCount'
+}
+
+export enum OrderAction {
+  AddToCart = 'cart/addToCart',
+  RemoveFromCart = 'cart/removeFromCart',
+  DecreaseCount = 'cart/decreaseCount',
+  IncreaseCount = 'cart/increaseCount'
+}
+

@@ -6,5 +6,4 @@ export * from './lib/nav.enum';
 export * from './lib/slice-name';
 export * from './lib/socials.enum';
 export * from './lib/sort-by.enum'
-export * from './lib/filter.enum'
 export * from './lib/utils.enum'

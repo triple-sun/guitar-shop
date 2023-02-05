@@ -1,4 +1,4 @@
-import { EAppRoute, EAuthStatus } from '@guitar-shop/front/enums';
+import { EAppRoute, AuthStatus } from '@guitar-shop/front/enums';
 import { useAppSelector } from '@guitar-shop/front/hooks';
 import { getAuthStatus } from '@guitar-shop/front/store';
 import React from 'react';
@@ -10,7 +10,7 @@ type PrivateRouteProps = {
 }
 
 const PrivateRoute = ({children}: PropsWithChildren<PrivateRouteProps>) => (
-  useAppSelector(getAuthStatus) === EAuthStatus.Auth
+  useAppSelector(getAuthStatus) === AuthStatus.Auth
     ? children
     : <Navigate to={EAppRoute.Login} />
 );

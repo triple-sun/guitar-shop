@@ -1,12 +1,12 @@
-import { getItemsState, setMaxPriceAction, setMinPriceAction, setPageAction, setSortAction, toggleGuitarTypeAction, toggleStringCountAction } from '@guitar-shop/front/store';
+import { getItemsState, resetFiltersAction, resetSortAction, setMaxPriceAction, setMinPriceAction, setPageAction, setSortAction, toggleGuitarTypeAction, toggleStringCountAction } from '@guitar-shop/front/store';
 import { GuitarType, StringCount } from '@prisma/client';
 import { useCallback } from 'react';
 import useAppDispatch from '../use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../use-app-selector/use-app-selector';
-import { ESortBy } from '@guitar-shop/front/enums';
+import { SortBy } from '@guitar-shop/front/enums';
 
 export const useItems = () => {
-  const {data: items, guitarTypes, stringCounts, page, minPrice, maxPrice} = useAppSelector(getItemsState);
+  const {data: {items, allItems}, types, strings, page, minPrice, maxPrice} = useAppSelector(getItemsState);
 
   const dispatch = useAppDispatch();
 
@@ -41,15 +41,28 @@ export const useItems = () => {
   );
 
   const handleItemsSortByInput = useCallback(
-    (sortBy: ESortBy) => {
+    (sortBy: SortBy) => {
       dispatch(setSortAction(sortBy));
     }, [dispatch]
   );
 
+  const handleResetFilters = useCallback(
+    () => {
+      dispatch(resetFiltersAction())
+    }, [dispatch]
+  )
+
+    const handleResetSort = useCallback(
+    () => {
+      dispatch(resetSortAction())
+    }, [dispatch]
+  )
+
   return {
     items,
-    guitarTypes,
-    stringCounts,
+    allItems,
+    selectedTypes: types,
+    selectedCounts: strings,
     minPrice,
     maxPrice,
     page,

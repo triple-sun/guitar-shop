@@ -1,4 +1,4 @@
-import { ESortBy, ESortOrder, Rating } from "@guitar-shop/front/enums"
+import { SortBy, SortOrder, Rating } from "@guitar-shop/front/enums"
 import { TGuitar } from "@guitar-shop/front/types"
 
 export const toggleArrElement = <T>(array: T[], value: T) => array.indexOf(value) === -1 ? [...array, value] : array.slice(array.indexOf(value), 0)
@@ -7,9 +7,9 @@ export const hasAll = <T extends Record<string, string>>(obj: T, arr: (keyof typ
 
 export const setFilter = <T extends Record<string, string>>(obj: T, arr: (keyof typeof obj)[], value: keyof typeof obj) => hasAll(obj, arr) ? [] : toggleArrElement(arr, value)
 
-export const toggleSortOrder = (order: ESortOrder) => order === ESortOrder.Asc ? ESortOrder.Desc : ESortOrder.Desc
+export const toggleSortOrder = (order: SortOrder) => order === SortOrder.Asc ? SortOrder.Desc : SortOrder.Desc
 
-export const setSortOrder = (sortOrder: ESortOrder, sortBy: ESortBy, sortByUpdate: ESortBy) => sortBy === sortByUpdate ? toggleSortOrder(sortOrder) : sortOrder
+export const setSortOrder = (sortOrder: SortOrder, sortBy: SortBy, sortByUpdate: SortBy) => sortBy === sortByUpdate ? toggleSortOrder(sortOrder) : sortOrder
 
 const ratingToArray = (totalRating: number) => {
   const ratings: number[] = []
@@ -53,3 +53,18 @@ export const getHeaderClass = (isAuth: boolean, isAdmin: boolean | undefined, it
         return 'header--logged-empty header'
     }
   }
+
+export const getIndexes = (cart: number[]) =>  {
+  const result: number[] = []
+
+  cart.forEach((count, index) => {
+    if (count > 0) {
+      result.push(index)
+    }
+  })
+  return result
+}
+
+export const getTotalPrice = (items: {item: TGuitar, count: number}[]) => {
+  return items.length > 0 ? items.map((item) => item.count * item.item.price).reduce((a: number, b: number) => a + b) : 0
+}

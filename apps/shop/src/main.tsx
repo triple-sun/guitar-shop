@@ -2,8 +2,9 @@ import ReactDOM from 'react-dom/client';
 import { HistoryRouter } from './history-router/history-router';
 import {
   browserHistory,
-  setAuthAction,
   fetchItemsAction,
+  getToken,
+  setAuthAction,
   store,
 } from '@guitar-shop/front/store';
 import { Provider } from 'react-redux';
@@ -16,7 +17,10 @@ const root = ReactDOM.createRoot(
 );
 
 store.dispatch(fetchItemsAction({}));
-store.dispatch(setAuthAction());
+
+if (getToken()) {
+  store.dispatch(setAuthAction())
+}
 
 browserHistory.listen(() => {
   window.scrollTo(0, 0);

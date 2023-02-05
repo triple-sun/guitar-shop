@@ -42,5 +42,7 @@ export enum Property {
   EndDate = 'endDate',
   OrderPrice = 'orderPrice',
   SortBy = 'SortBy',
-  SortOrder = 'SortOrder'
+  SortOrder = 'SortOrder',
+  Types = 'types',
+  Limit = 'limit',
 }

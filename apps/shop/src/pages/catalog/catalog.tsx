@@ -10,7 +10,10 @@ export const CatalogPage = () => {
     <PageComponent>
         <div className="container">
           <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
-          <BreadcrumbsComponent name='Каталог' to={EAppRoute.Main} />
+          <BreadcrumbsComponent pages={[
+              {name: 'Главная', to: EAppRoute.Main},
+              {name: 'Каталог', to: EAppRoute.Main}
+            ]}/>
           <div className="catalog">
           <FilterComponent />
           <SortComponent />

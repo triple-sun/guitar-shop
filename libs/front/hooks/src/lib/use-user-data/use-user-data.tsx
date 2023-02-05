@@ -1,14 +1,18 @@
-import { useCallback } from 'react';
+import { useCallback, useLayoutEffect } from 'react';
 import useAppSelector from '../use-app-selector/use-app-selector';
 import useAppDispatch from '../use-app-dispatch/use-app-dispatch'
-import { addToCartAction, getUserState, loginAction, logoutAction } from '@guitar-shop/front/store';
-import { EAuthStatus } from '@guitar-shop/front/enums';
+import { increaseCountAction, getToken, getUserState, loginAction, logoutAction, setAuthAction } from '@guitar-shop/front/store';
+import { AuthStatus } from '@guitar-shop/front/enums';
 import { TGuitar, TUser } from '@guitar-shop/front/types';
 
 export const useUserData = () => {
   const {authStatus, userInfo, cart} = useAppSelector(getUserState);
 
-  const isAuth = authStatus === EAuthStatus.Auth
+  const hasToken = !!getToken()
+
+  const isAdmin = userInfo ? userInfo.isAdmin : false
+
+  const isAuth = authStatus === AuthStatus.Auth
 
   const dispatch = useAppDispatch();
 
@@ -22,18 +26,14 @@ export const useUserData = () => {
       dispatch(logoutAction());
     }, [dispatch]);
 
-  const handleAddToCartClick = useCallback(
-    (item: TGuitar) => {
-      dispatch(addToCartAction(item));
-    }, [dispatch]);
-
   return {
     isAuth,
+    isAdmin,
+    hasToken,
     userInfo,
     cart,
     handleLoginSubmit,
-    handleLogoutClick,
-    handleAddToCartClick
+    handleLogoutClick
   };
 };
 

@@ -1,10 +1,10 @@
-export enum ESortBy {
+export enum SortBy {
   Date = 'createdAt',
   Price = 'price',
   Reviews = 'reviews'
 }
 
-export enum ESortOrder {
+export enum SortOrder {
   Asc = 'asc',
   Desc = 'desc'
 }

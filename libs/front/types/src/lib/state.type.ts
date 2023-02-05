@@ -1,7 +1,6 @@
-import { EAuthStatus, ESortBy, ESortOrder } from '@guitar-shop/front/enums';
+import { AuthStatus, SortBy, SortOrder } from '@guitar-shop/front/enums';
 import { GuitarType, StringCount } from '@prisma/client';
-import { TCurrentItemData, TData } from './data.type';
-import { TGuitar } from './guitar.type';
+import { TCart, TCurrentItemData, TData, TItemsData } from './data.type';
 import { TUser } from './user.type';
 
 export type TCurrentItemState = TData<TCurrentItemData> & {
@@ -10,17 +9,19 @@ export type TCurrentItemState = TData<TCurrentItemData> & {
 
 export type TUserState = {
   userInfo: TUser | null;
-  authStatus: EAuthStatus;
-  cart: TGuitar[]
+  authStatus: AuthStatus;
+  cart: TCart;
 };
 
-export type TItemsState = TData<TGuitar[]> & {
-  stringCounts: StringCount[];
-  guitarTypes: GuitarType[];
-  sortBy: ESortBy;
-  sortOrder: ESortOrder;
+export type TItemsState = TData<TItemsData> & {
+  strings: StringCount[];
+  types: GuitarType[];
+  sortBy: SortBy;
+  sortOrder: SortOrder;
   page: number;
   minPrice?: number;
-  maxPrice?: number;};
+  maxPrice?: number;
+};
 
+export type TFetchItemsQuery = Pick<Partial<TItemsState>, 'types' | 'strings' | 'sortBy' | 'sortOrder' | 'page' | 'minPrice' | 'maxPrice'>
 

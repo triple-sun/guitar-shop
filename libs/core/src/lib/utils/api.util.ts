@@ -88,10 +88,7 @@ export const getConstraints = (prop: string, type?: PropType) => {
   }
 }
 
-export const getExample = (prop: Property, type: PropType) => {
-  console.log(ApiExamples[type][prop])
-  return ApiExamples[type][prop] ? { example: ApiExamples[type][prop] ?? '' } : {}
-}
+export const getExample = (prop: Property, type: PropType) => ApiExamples[type][prop] ? { example: ApiExamples[type][prop] ?? '' } : {}
 
 export const getDescription = (ent: Entity, prop: Property) => `${ent} ${prop.replace(/([A-Z])/g, ' $1').toLowerCase()}`
 

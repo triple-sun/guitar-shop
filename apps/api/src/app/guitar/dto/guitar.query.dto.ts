@@ -1,34 +1,34 @@
-import { ApiProp, Entity, Property, ItemSortBy, SortOrder } from '@guitar-shop/core';
+import { ApiProp, Entity, Property, ItemSortBy, SortOrder, Limit } from '@guitar-shop/core';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { GuitarType, StringCount } from '@prisma/client';
 import { Expose, Transform } from 'class-transformer';
-import { IsIn, IsInt, IsOptional, ValidateIf } from 'class-validator';
+import { IsEnum, IsIn, IsInt, IsOptional, ValidateIf } from 'class-validator';
 
 const { Strings } = Property;
 
 export class GuitarQueryDto {
   @Expose()
   @IsOptional()
+  @IsEnum(StringCount, {each: true})
   @ValidateIf(o => o.strings.length > 0)
-  @IsIn(Object.values(StringCount), {each: true})
   @ApiPropertyOptional(
     ApiProp.Comm({
       ent: Entity.Guitar,
       prop: Strings,
-      extra: { enum: StringCount, type: [StringCount], default: [] },
+      extra: { enum: StringCount, type: [StringCount], default: [], example: [StringCount.Six] },
     })
   )
   public strings?: StringCount[] = []
 
   @Expose()
   @IsOptional()
+  @IsEnum(GuitarType, {each: true})
   @ValidateIf(o => o.types.length > 0)
-  @IsIn(Object.values(GuitarType), {each: true})
   @ApiPropertyOptional(
     ApiProp.Comm({
       ent: Entity.Guitar,
-      prop: Property.Type,
-      extra: { enum: GuitarType, type: [GuitarType], default: []},
+      prop: Property.Types,
+      extra: { enum: GuitarType, type: [GuitarType], default: [], example: [GuitarType.Acoustic]},
     })
   )
   public types?: GuitarType[] = []
@@ -63,6 +63,31 @@ export class GuitarQueryDto {
   @IsOptional()
   @IsInt()
   @ApiPropertyOptional(
+    ApiProp.Num({
+      ent: Entity.Guitar,
+      prop: Property.MinPrice,
+      extra: {example: 250}
+    })
+  )
+  public minPrice?: number;
+
+  @Expose()
+  @IsOptional()
+  @IsInt()
+  @ApiPropertyOptional(
+    ApiProp.Num({
+      ent: Entity.Guitar,
+      prop: Property.MaxPrice,
+      extra: {example: 950000}
+    })
+  )
+  public maxPrice?: number;
+
+
+  @Expose()
+  @IsOptional()
+  @IsInt()
+  @ApiPropertyOptional(
     ApiProp.Comm({
       ent: Entity.Guitar,
       prop: Property.Page,
@@ -70,4 +95,16 @@ export class GuitarQueryDto {
     })
   )
   public page?: number = 1
+
+  @Expose()
+  @IsOptional()
+  @IsInt()
+  @ApiPropertyOptional(
+    ApiProp.Comm({
+      ent: Entity.Guitar,
+      prop: Property.Limit,
+      extra: { default: Limit.Items },
+    })
+  )
+  public limit?: number = Limit.Items
 }

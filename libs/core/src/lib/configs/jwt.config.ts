@@ -10,6 +10,6 @@ export const getJWTConfig = (): JwtModuleAsyncOptions => ({
   imports: [ConfigModule],
   useFactory: async (configService: ConfigService): Promise<JwtModuleOptions> => ({
     secret: configService.get<string>('jwt.secret'),
-    signOptions: { expiresIn: '6000s', algorithm: 'HS256' }
+    signOptions: { algorithm: 'HS256' }
   })
 })

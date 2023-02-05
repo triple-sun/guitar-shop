@@ -7,6 +7,6 @@ export const isItemsDataLoaded = createSelector(getItemsState, (state) => state.
 
 export const getItems = createSelector(getItemsState, (state) => state.data);
 
-export const getStringCounts = createSelector(getItemsState, (state) => state.stringCounts);
+export const getStringCounts = createSelector(getItemsState, (state) => state.strings);
 
-export const getGuitarTypes = createSelector(getItemsState, (state) => state.guitarTypes)
+export const getGuitarTypes = createSelector(getItemsState, (state) => state.types)

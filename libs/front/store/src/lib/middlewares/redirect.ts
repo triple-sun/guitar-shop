@@ -1,4 +1,4 @@
-import { EChangeAction } from "@guitar-shop/front/enums";
+import { AppAction } from "@guitar-shop/front/enums";
 import { Middleware } from "@reduxjs/toolkit";
 import browserHistory from "../browser-history";
 import { rootReducer } from "../store";
@@ -9,7 +9,7 @@ export const redirect: Middleware<unknown, TReducer> =
   (_store) =>
     (next) =>
       (action) => {
-        if (action.type === EChangeAction.RedirectToRoute) {
+        if (action.type === AppAction.RedirectToRoute) {
           browserHistory.push(action.payload);
         }
 

@@ -1,19 +1,25 @@
-import { ESlice, ESortBy, ESortOrder } from '@guitar-shop/front/enums';
+import { ESlice, SortBy, SortOrder } from '@guitar-shop/front/enums';
 import { TItemsState } from '@guitar-shop/front/types';
-import { setFilter, setSortOrder } from '@guitar-shop/front/utils';
+import { setFilter } from '@guitar-shop/front/utils';
 import { GuitarType, StringCount } from '@prisma/client';
 import { createSlice } from '@reduxjs/toolkit';
-import { setPageAction, setSortAction, toggleGuitarTypeAction, toggleStringCountAction } from './items-actions';
+import { store } from '../store';
+import { resetFiltersAction, resetSortAction, setPageAction, setSortAction, setSortOrderAction, toggleGuitarTypeAction, toggleStringCountAction } from './items-actions';
 import { fetchItemsAction } from './items-api-actions';
 
 const ITEMS_INITIAL_STATE: TItemsState = {
-  data: [],
-  stringCounts: [],
-  guitarTypes: [],
-  sortBy: ESortBy.Date,
-  sortOrder: ESortOrder.Desc,
+  data: {
+    items: [],
+    allItems: []
+  },
   isLoaded: false,
-  page: 1
+  sortBy: SortBy.Date,
+  sortOrder: SortOrder.Desc,
+  strings: [],
+  types: [],
+  maxPrice: undefined,
+  minPrice: undefined,
+  page: 1,
 }
 
 export const items = createSlice({
@@ -23,18 +29,45 @@ export const items = createSlice({
   extraReducers(builder) {
     builder
       .addCase(toggleStringCountAction, (state, action) => {
-        state.stringCounts = setFilter(StringCount, state.stringCounts, action.payload)
+        state.strings = setFilter(StringCount, state.strings, action.payload)
 
+        store.dispatch(fetchItemsAction({...state}))
       })
       .addCase(toggleGuitarTypeAction, (state, action) => {
-        state.guitarTypes = setFilter(GuitarType, state.guitarTypes, action.payload)
+        state.types = setFilter(GuitarType, state.types, action.payload)
+
+        store.dispatch(fetchItemsAction({...state}))
       })
       .addCase(setSortAction, (state, action) => {
         state.sortBy = action.payload
-        state.sortOrder = setSortOrder(state.sortOrder, state.sortBy, action.payload)
+
+        store.dispatch(fetchItemsAction({...state}))
+      })
+      .addCase(setSortOrderAction, (state, action) => {
+        state.sortOrder = action.payload
+
+        store.dispatch(fetchItemsAction({...state}))
       })
       .addCase(setPageAction, (state, action) => {
         state.page = action.payload
+
+        store.dispatch(fetchItemsAction({...state}))
+      })
+      .addCase(resetFiltersAction, (state) => {
+        state.strings = []
+        state.types = []
+        state.page = 1
+        state.maxPrice = undefined
+        state.minPrice = undefined
+
+        store.dispatch(fetchItemsAction({...state}))
+      })
+      .addCase(resetSortAction, (state) => {
+        state.sortBy = SortBy.Date
+        state.sortOrder = SortOrder.Desc
+        state.page = 1
+
+        store.dispatch(fetchItemsAction({...state}))
       })
       .addCase(fetchItemsAction.pending, (state) => {
         state.isLoaded = false;

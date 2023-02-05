@@ -40,8 +40,13 @@ export const createApi = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError) => {
       if (error.response && shouldDisplayError(error.response)) {
-        toast.warn(error.message);
-      }
+        switch (true) {
+          case error.response.status === 401:
+            toast.warn('Вы не авторизованы. Токен авторизации отсутствует, не подходит или истек.')
+            break;
+          default:
+            toast.warn(error.response.statusText);
+      }}
 
       throw error;
     }

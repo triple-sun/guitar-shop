@@ -5,7 +5,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiOkResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { LoginUserDTO } from '../user/dto/login-user.dto';
 import {
   JwtAuthGuard,
@@ -35,9 +35,10 @@ export class AuthController {
   }
 
   @Get(Path.Verify)
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOkResponse({type: UserRdo})
-  @ApiBearerAuth()
+  @ApiUnauthorizedResponse()
   verifyUser(
     @User() {userId}: UserAuthDto
   ) {

@@ -1,20 +1,17 @@
 import { EAppRoute } from "@guitar-shop/front/enums"
-import { useUserData } from "@guitar-shop/front/hooks"
+import { useCartItem } from "@guitar-shop/front/hooks"
 import { TGuitar } from "@guitar-shop/front/types"
 import { handleTotalRating } from "@guitar-shop/front/utils"
 import { MouseEvent } from "react"
 import { Link } from "react-router-dom"
 
 export const CardElement = (item: TGuitar) => {
-  const { handleAddToCartClick } = useUserData()
+  const { handleAddToCart } = useCartItem(item)
   const {id, reviewCount, totalRating, model, photo, price} = item
   const photoSrc = photo.replace('markup', './assets')
   const {ratings, rating} = handleTotalRating(totalRating)
 
-  const onAddToCartClick = (evt: MouseEvent<HTMLAnchorElement>) => {
-    evt.preventDefault()
-    handleAddToCartClick(item)
-  }
+  const onAddToCartClick = (evt: MouseEvent<HTMLAnchorElement>) => {evt.preventDefault(); handleAddToCart(item)}
 
   return (
   <div className="product-card"><img src={photoSrc} width="75" height="190" alt={model} />

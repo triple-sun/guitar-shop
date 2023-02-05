@@ -1,7 +1,5 @@
-import { EAppRoute } from "@guitar-shop/front/enums";
 import { TGuitar } from "./guitar.type";
 import { TReview } from "./review.type";
-import { TItemsState } from "./state.type";
 
 export type TData<T = null> = {
   data: T;
@@ -20,13 +18,21 @@ export type TAuthData = {
   password: string;
 };
 
-export type TItemsData = {
-  items: TGuitar[];
-}
-
 export type TCurrentItemData = {
   item: TGuitar | null;
   reviews: TReview[];
 }
 
-export type TFetchItemsQuery = Pick<Partial<TItemsState>, 'guitarTypes' | 'sortBy' | 'sortOrder' | 'stringCounts' | 'page' | 'minPrice' | 'maxPrice'>
+export type TItemsData = {
+  allItems: TGuitar[]
+  items: TGuitar[]
+}
+
+export type TCartItem = {
+  item: TGuitar;
+  count: number;
+}
+
+export type TCart = {
+  [id: number]: TCartItem | null
+}

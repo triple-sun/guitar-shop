@@ -1,16 +1,18 @@
 import { EAppRoute } from "@guitar-shop/front/enums"
 import { Link } from "react-router-dom"
 
-export type TBreadcrumbsProps = {
+type TBreadcrumbItem = {
   name: string,
   to: EAppRoute
 }
 
-export const BreadcrumbsComponent = (page: TBreadcrumbsProps) => {
-  const items = [{name: 'Главная', to: EAppRoute.Main}, page]
+type TBreadcrumbsProps = {
+  pages: TBreadcrumbItem[]
+}
 
+export const BreadcrumbsComponent = ({pages}: TBreadcrumbsProps) => {
   return (
     <ul className="breadcrumbs page-content__breadcrumbs">
-      {items.map((item) => <li className="breadcrumbs__item" key={item.name}><Link className="link" to={item.to}>{item.name}</Link></li>)}
+      {pages.map((page) => <li className="breadcrumbs__item" key={page.name}><Link className="link" to={page.to}>{page.name}</Link></li>)}
     </ul>
 )}
