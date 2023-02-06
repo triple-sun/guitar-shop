@@ -1,7 +1,8 @@
 export enum AppAction {
-  FetchItems = 'data/fetchItems',
-  FetchSingleItem = 'data/fetchSingleItem',
-  FetchUserInfo = 'data/fetchUserInfo',
+  FetchCatalog = 'data/fetchItems',
+  FetchCurrentItem = 'data/fetchCurrentItem',
+  FetchCurrentOrder = 'data/fetchCurrentOrder',
+  FetchUserData = 'data/fetchUserData',
   FetchOrders = 'data/fetchOrders',
   RedirectToRoute = 'app/redirectToRoute',
 }
@@ -16,7 +17,8 @@ export enum ItemAction {
   SetMaxPrice = 'items/setPriceMax',
   SetPage = 'items/setPage',
   ResetFilters = 'items/resetFilters',
-  ResetSort = 'item/resetSort'
+  ResetSort = 'item/resetSort',
+  ResetCurrentItem = 'item/resetCurrentItem'
 }
 
 export enum UserAction {
@@ -33,9 +35,8 @@ export enum CartAction {
 }
 
 export enum OrderAction {
-  AddToCart = 'cart/addToCart',
-  RemoveFromCart = 'cart/removeFromCart',
-  DecreaseCount = 'cart/decreaseCount',
-  IncreaseCount = 'cart/increaseCount'
+  DeleteOrder = 'order/delete',
+  EditOrder = 'cart/edit',
+  RemoveItem = 'cart/decreaseCount',
 }
 

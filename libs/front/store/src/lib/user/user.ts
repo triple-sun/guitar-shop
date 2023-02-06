@@ -1,22 +1,19 @@
-import { AuthStatus, ESlice } from '@guitar-shop/front/enums';
+import { AuthStatus, Slice } from '@guitar-shop/front/enums';
 import { TUserState } from '@guitar-shop/front/types';
 import { createSlice } from '@reduxjs/toolkit';
-import logoutAction from './user-logout-action';
-import loginAction from './user-login-action';
-import { addToCartAction, decreaseCountAction, increaseCountAction, removeFromCartAction } from './user-actions';
+import { addToCartAction, decreaseCountAction, increaseCountAction, loginAction, logoutAction, removeFromCartAction, SetAuthAction } from './user-actions';
 import { toast } from 'react-toastify';
 import { dropToken, getToken } from '../services/token';
-import { setAuthAction } from './user-set-auth-action';
 
-export const userInitialState: TUserState = {
+const initialState: TUserState = {
   userInfo: null,
   authStatus: AuthStatus.Unknown,
   cart: {},
 };
 
 export const user = createSlice({
-  name: ESlice.User,
-  initialState: userInitialState,
+  name: Slice.User,
+  initialState,
   reducers: {},
   extraReducers(builder) {
     builder
@@ -59,11 +56,11 @@ export const user = createSlice({
 
         state.cart[payload] = null
       })
-      .addCase(setAuthAction.fulfilled, (state, action) => {
+      .addCase(SetAuthAction.fulfilled, (state, action) => {
         state.authStatus = AuthStatus.Auth
         state.userInfo = action.payload
       })
-      .addCase(setAuthAction.rejected, (state) => {
+      .addCase(SetAuthAction.rejected, (state) => {
         state.authStatus = AuthStatus.NoAuth;
         if (getToken()) {
           dropToken()
@@ -80,7 +77,7 @@ export const user = createSlice({
         }
       })
       .addCase(logoutAction.fulfilled, (state) => {
-        state.userInfo = userInitialState.userInfo;
+        state.userInfo = initialState.userInfo;
         state.authStatus = AuthStatus.NoAuth;
       });
   },

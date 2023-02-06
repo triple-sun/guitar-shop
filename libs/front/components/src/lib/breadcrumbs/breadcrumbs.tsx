@@ -1,9 +1,9 @@
-import { EAppRoute } from "@guitar-shop/front/enums"
+import { AppRoute } from "@guitar-shop/front/enums"
 import { Link } from "react-router-dom"
 
 type TBreadcrumbItem = {
   name: string,
-  to: EAppRoute
+  to: AppRoute | string
 }
 
 type TBreadcrumbsProps = {

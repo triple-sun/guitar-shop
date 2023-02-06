@@ -1,4 +1,4 @@
-import { EAppRoute } from '@guitar-shop/front/enums';
+import { AppRoute } from '@guitar-shop/front/enums';
 import { Link } from 'react-router-dom';
 
 export const LogoComponent = ({
@@ -8,7 +8,7 @@ export const LogoComponent = ({
 }) => (
   <Link
     className={`${forFooter ? 'footer__logo' : 'header__logo'} logo`}
-    to={EAppRoute.Main}
+    to={AppRoute.Main}
   >
     <img
       className="logo__img"

@@ -1,4 +1,4 @@
-import { GuitarEntity, ICRUD, Limit } from '@guitar-shop/core';
+import { GuitarEntity, ICRUD, ItemSortBy, Limit } from '@guitar-shop/core';
 import { Injectable } from '@nestjs/common';
 import { IGuitar } from '@guitar-shop/core';
 
@@ -28,21 +28,19 @@ export class GuitarRepository implements ICRUD<GuitarEntity, number, IGuitar> {
         ? limit
         : Limit.Items
 
+    const orderBy = sortBy === ItemSortBy.Reviews ? {reviews: { _count: sortOrder}} : {[sortBy]: sortOrder}
+
     const items = await this.prisma.guitar.findMany({
       where: {
-        strings: { in: stringCounts.length > 0 ? stringCounts: Object.values(StringCount)
+        strings: { in: (stringCounts?.length > 0) ? stringCounts: Object.values(StringCount)
         },
-        type: { in: (types.length > 0) ? types : Object.values(GuitarType) },
+        type: { in: (types?.length > 0) ? types : Object.values(GuitarType) },
         price: {gte: minPrice ?? undefined, lte: maxPrice ?? undefined}
       },
       take: take,
       skip: (take && page > 1) ? take * (page - 1) : undefined,
-      orderBy: {
-        [sortBy]: sortOrder,
-      },
+      orderBy: orderBy,
     });
-
-    console.log({items})
 
     return items
   }

@@ -1,17 +1,17 @@
-import { useCallback, useLayoutEffect } from 'react';
-import useAppSelector from '../use-app-selector/use-app-selector';
-import useAppDispatch from '../use-app-dispatch/use-app-dispatch'
-import { increaseCountAction, getToken, getUserState, loginAction, logoutAction, setAuthAction } from '@guitar-shop/front/store';
+import { useCallback } from 'react';
+import { addToCartAction, decreaseCountAction, getAuthStatus, getToken, getUserCart, getUserInfo, increaseCountAction, loginAction, logoutAction, removeFromCartAction } from '@guitar-shop/front/store';
 import { AuthStatus } from '@guitar-shop/front/enums';
 import { TGuitar, TUser } from '@guitar-shop/front/types';
+import { useAppSelector } from '../use-app-selector/use-app-selector';
+import { useAppDispatch } from '../use-app-dispatch/use-app-dispatch';
 
 export const useUserData = () => {
-  const {authStatus, userInfo, cart} = useAppSelector(getUserState);
+  const authStatus = useAppSelector(getAuthStatus)
+  const userInfo = useAppSelector(getUserInfo)
+  const cart = useAppSelector(getUserCart)
 
   const hasToken = !!getToken()
-
   const isAdmin = userInfo ? userInfo.isAdmin : false
-
   const isAuth = authStatus === AuthStatus.Auth
 
   const dispatch = useAppDispatch();
@@ -26,6 +26,29 @@ export const useUserData = () => {
       dispatch(logoutAction());
     }, [dispatch]);
 
+    const handleAddToCart = useCallback(
+    (item: TGuitar) => {
+      dispatch(addToCartAction(item));
+    }, [dispatch]);
+
+  const handleRemoveFromCart = useCallback(
+    (id: number) => {
+      dispatch(removeFromCartAction(id))
+    }, [dispatch]
+  )
+
+  const handleIncreaseCount = useCallback(
+    (id: number) => {
+      dispatch(increaseCountAction(id))
+    }, [dispatch]
+  )
+
+  const handleDecreaseCount = useCallback(
+    (id: number) => {
+      dispatch(decreaseCountAction(id))
+    }, [dispatch]
+  )
+
   return {
     isAuth,
     isAdmin,
@@ -33,7 +56,11 @@ export const useUserData = () => {
     userInfo,
     cart,
     handleLoginSubmit,
-    handleLogoutClick
+    handleLogoutClick,
+    handleAddToCart,
+    handleRemoveFromCart,
+    handleDecreaseCount,
+    handleIncreaseCount
   };
 };
 

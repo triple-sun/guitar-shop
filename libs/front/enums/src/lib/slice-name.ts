@@ -1,5 +1,7 @@
-export enum ESlice {
-  Items = 'ITEMS',
+export enum Slice {
+  Catalog = 'CATALOG',
   User = 'USER',
-  Orders = 'ORDERS'
-}
+  Orders = 'ORDERS',
+  CurrentItem = 'CURRENT_ITEM',
+  CurrentOrder = 'CURRENT_ORDER'
+ }

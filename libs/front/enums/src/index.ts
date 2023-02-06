@@ -2,6 +2,7 @@ export * from './lib/action.enum'
 export * from './lib/api-route.enum'
 export * from './lib/app-route.enum'
 export * from './lib/auth-status.enum';
+export * from './lib/item-tab.enum'
 export * from './lib/nav.enum';
 export * from './lib/slice-name';
 export * from './lib/socials.enum';

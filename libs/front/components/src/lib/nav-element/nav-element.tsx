@@ -1,4 +1,4 @@
-import { EAppRoute, ENavItem } from '@guitar-shop/front/enums';
+import { AppRoute, ENavItem } from '@guitar-shop/front/enums';
 import { Link } from 'react-router-dom';
 
 export const NavElement = ({
@@ -10,7 +10,7 @@ export const NavElement = ({
 }) => (
   <li className={`${forFooter ? 'footer__nav-list-item' : 'main-nav__item'}`}>
     <Link
-      to={EAppRoute.Main}
+      to={AppRoute.Main}
       className={`link ${forFooter ? 'footer__nav-link' : 'main-nav__link'}`}
     >
       {navItem}

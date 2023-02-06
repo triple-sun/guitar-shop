@@ -1,4 +1,4 @@
-import { EAppRoute, ENavItem } from '@guitar-shop/front/enums';
+import { AppRoute, ENavItem } from '@guitar-shop/front/enums';
 import { useUserData } from '@guitar-shop/front/hooks';
 import { MouseEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -17,7 +17,7 @@ export const HeaderComponent = () => {
 
   const isAdmin = userInfo?.isAdmin;
   const name = userInfo?.name;
-  
+
   const itemsCount = Object.values(cart).length
   const headerClass = getHeaderClass(isAuth, isAdmin, itemsCount)
 
@@ -27,7 +27,7 @@ export const HeaderComponent = () => {
     evt.preventDefault()
     isAuth
       ? handleLogoutClick()
-      : navigate(EAppRoute.Login)
+      : navigate(AppRoute.Login)
   }
 
   return (
@@ -50,7 +50,7 @@ export const HeaderComponent = () => {
             </nav>
             <div className="header__container">
               <span className="header__user-name">{name}</span>
-              <Link className="header__link" to={EAppRoute.Login} aria-label="Перейти в личный кабинет" onClick={onLoginClick}>
+              <Link className="header__link" to={AppRoute.Login} aria-label="Перейти в личный кабинет" onClick={onLoginClick}>
                 <svg
                   className="header__link-icon"
                   width="12"
@@ -63,7 +63,7 @@ export const HeaderComponent = () => {
               </Link>
               <Link
                 className="header__cart-link"
-                to={EAppRoute.Cart}
+                to={AppRoute.Cart}
                 aria-label="Перейти в корзину"
               >
                 <svg

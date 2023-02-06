@@ -1,9 +1,9 @@
-export enum EAPIRoute {
+export enum ApiRoute {
   Auth = '/auth',
   Items = '/items',
-  Favorites = '/favorite',
   Login = '/auth/login',
   Verify = '/auth/verify',
   Logout = '/logout',
-  Review = '/comments',
+  Reviews = '/reviews',
+  Orders = '/orders'
 }

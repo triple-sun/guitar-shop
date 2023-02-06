@@ -1,35 +1,33 @@
 import { CartItemElement, PageComponent } from "@guitar-shop/front/components";
-import { EAppRoute } from "@guitar-shop/front/enums";
-import { useItems, useUserData } from "@guitar-shop/front/hooks";
-import { getIndexes, getTotalPrice } from "@guitar-shop/front/utils";
+import { AppRoute } from "@guitar-shop/front/enums";
+import { useUserData } from "@guitar-shop/front/hooks";
 import { BreadcrumbsComponent } from "libs/front/components/src/lib/breadcrumbs/breadcrumbs";
 
 export const CartPage = () => {
-  const {cart} = useUserData()
-  const items = Object.values(cart)
+  const { cart } = useUserData()
 
-  const totalPrice = getTotalPrice(items)
+  const totalPrice = Object.values(cart).length > 0 ? Object.values(cart).map((item) => (item.count * item.item.price)).reduce((a: number, b: number) => a + b) : 0
 
   return (
-  <PageComponent>
+    <main className="page-content">
     <div className="container">
           <h1 className="title title--bigger page-content__title">Корзина</h1>
           <BreadcrumbsComponent pages={[
-            {name: 'Главная', to: EAppRoute.Main},
-            {name: 'Каталог', to: EAppRoute.Main},
-            {name: 'Корзина', to: EAppRoute.Cart}
+            {name: 'Главная', to: AppRoute.Main},
+            {name: 'Каталог', to: AppRoute.Main},
+            {name: 'Корзина', to: AppRoute.Cart}
           ]}/>
           <div className="cart">
-            {items.map(({item, count}) => <CartItemElement item={item} count={count} key={item.id}/>)}
+            {Object.values(cart).map(({item, count}) => <CartItemElement item={item} count={count} key={item.id} cart={cart}/>)}
             <div className="cart__footer">
               <div className="cart__total-info">
                 <p className="cart__total-item"><span className="cart__total-value-name">Всего:</span><span className="cart__total-value">{totalPrice} ₽</span></p>
                 <p className="cart__total-item"><span className="cart__total-value-name">К оплате:</span><span className="cart__total-value cart__total-value--payment">{totalPrice} ₽</span></p>
-                <button className="button button--red button--big cart__order-button">Оформить заказ</button>
-              </div>
-            </div>
+              <button className="button button--red button--big cart__order-button">Оформить заказ</button>
           </div>
         </div>
-  </PageComponent>
-)
+      </div>
+    </div>
+    </main>
+  )
 }

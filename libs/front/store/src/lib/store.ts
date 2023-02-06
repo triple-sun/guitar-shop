@@ -1,13 +1,19 @@
-import { ESlice } from "@guitar-shop/front/enums";
+import { Slice } from "@guitar-shop/front/enums";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { items } from "./items/items";
+import { catalog } from "./catalog/catalog";
+import { currentItem } from "./current-item/current-item";
+import { currentOrder } from "./current-order/current-order";
 import { redirect } from "./middlewares/redirect";
+import { orders } from "./orders/orders";
 import { createApi } from "./services/api";
 import { user } from "./user/user";
 
 export const rootReducer = combineReducers({
-  [ESlice.User]: user.reducer,
-  [ESlice.Items]: items.reducer
+  [Slice.User]: user.reducer,
+  [Slice.Catalog]: catalog.reducer,
+  [Slice.Orders]: orders.reducer,
+  [Slice.CurrentItem]: currentItem.reducer,
+  [Slice.CurrentOrder]: currentOrder.reducer
 });
 
 export const api = createApi()

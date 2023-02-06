@@ -1,4 +1,4 @@
-import { ApiProp, Entity, Property, ItemSortBy, SortOrder, Limit } from '@guitar-shop/core';
+import { ApiProp, Entity, Property, ItemSortBy, SortOrder, Limit, Size } from '@guitar-shop/core';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { GuitarType, StringCount } from '@prisma/client';
 import { Expose, Transform } from 'class-transformer';
@@ -8,30 +8,31 @@ const { Strings } = Property;
 
 export class GuitarQueryDto {
   @Expose()
-  @IsOptional()
+  @ValidateIf(o => o.strings)
+  @Transform(({value}) => value ? value : StringCount)
+  @IsOptional({each: true})
   @IsEnum(StringCount, {each: true})
-  @ValidateIf(o => o.strings.length > 0)
   @ApiPropertyOptional(
     ApiProp.Comm({
       ent: Entity.Guitar,
       prop: Strings,
-      extra: { enum: StringCount, type: [StringCount], default: [], example: [StringCount.Six] },
+      extra: { enum: StringCount, type: [StringCount], default: [], example: [StringCount.Six, StringCount.Twelve] },
     })
   )
-  public strings?: StringCount[] = []
+  public strings?: StringCount[];
 
   @Expose()
-  @IsOptional()
+  @Transform(({value}) => value ? value : GuitarType)
+  @IsOptional({each: true})
   @IsEnum(GuitarType, {each: true})
-  @ValidateIf(o => o.types.length > 0)
   @ApiPropertyOptional(
     ApiProp.Comm({
       ent: Entity.Guitar,
       prop: Property.Types,
-      extra: { enum: GuitarType, type: [GuitarType], default: [], example: [GuitarType.Acoustic]},
+      extra: { enum: GuitarType, type: [GuitarType], default: [], example: [GuitarType.Acoustic, GuitarType.Electric]},
     })
   )
-  public types?: GuitarType[] = []
+  public types?: GuitarType[]
 
   @Expose()
   @IsOptional()
@@ -61,24 +62,26 @@ export class GuitarQueryDto {
 
   @Expose()
   @IsOptional()
+  @Transform(({value}) => value ?? Size[Property.Price].Min)
   @IsInt()
   @ApiPropertyOptional(
     ApiProp.Num({
       ent: Entity.Guitar,
       prop: Property.MinPrice,
-      extra: {example: 250}
+      extra: {example: 250, default: 100}
     })
   )
   public minPrice?: number;
 
   @Expose()
   @IsOptional()
+  @Transform(({value}) => value ?? Size[Property.Price].Max)
   @IsInt()
   @ApiPropertyOptional(
     ApiProp.Num({
       ent: Entity.Guitar,
       prop: Property.MaxPrice,
-      extra: {example: 950000}
+      extra: {example: 900000, default: 1000000}
     })
   )
   public maxPrice?: number;
