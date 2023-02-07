@@ -17,6 +17,21 @@ export const decreaseCountAction = createAction<number>(CartAction.DecreaseCount
 export const addToCartAction = createAction<TGuitar>(CartAction.AddToCart);
 export const removeFromCartAction = createAction<number>(CartAction.RemoveFromCart);
 
+export const registerAction = createAsyncThunk<
+  TUser,
+  TAuthData,
+  {
+    dispatch: TAppDispatch;
+    state: TState;
+    extra: AxiosInstance;
+  }>(
+    UserAction.Register,
+    async ({ name, email, password }, { dispatch, extra: api }) => {
+    const {data} = await api.post<TUser>(ApiRoute.Auth, { name, email, password });
+
+    return data
+});
+
 export const loginAction = createAsyncThunk<
   TUser,
   TAuthData,

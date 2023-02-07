@@ -26,8 +26,9 @@ export enum PortDefault {
 }
 
 export enum Path {
-  Login = 'login',
-  Verify = 'verify'
+  Login = '/login',
+  Verify = '/verify',
+  Register = 'register'
 }
 
 export enum PropType {

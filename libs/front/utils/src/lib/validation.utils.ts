@@ -15,3 +15,5 @@ export const validatePassword = (password: string) => {
 
   return (hasLetters || hasDigits) && hasLength;
 };
+
+export const validateName = (name: string) => name.length > 1 && name.length <= 15

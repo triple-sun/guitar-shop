@@ -15,6 +15,7 @@ export type TAddReviewData = {
 };
 
 export type TAuthData = {
+  name?: string;
   email: string;
   password: string;
 };

@@ -1,9 +1,9 @@
 export enum ApiRoute {
-  Auth = '/auth',
-  Items = '/items',
-  Login = '/auth/login',
-  Verify = '/auth/verify',
-  Logout = '/logout',
-  Reviews = '/reviews',
-  Orders = '/orders'
+  Auth = 'api/auth',
+  Items = 'api/items',
+  Login = 'api/auth/login',
+  Verify = 'api/auth/verify',
+  Logout = 'api/auth/logout',
+  Reviews = 'api/reviews',
+  Orders = 'api/orders'
 }

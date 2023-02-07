@@ -16,11 +16,6 @@ export const useUserData = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleLoginSubmit = useCallback(
-    (authData: Pick<TUser, 'email' | 'password'>) => {
-      dispatch(loginAction(authData));
-    }, [dispatch]);
-
   const handleLogoutClick = useCallback(
     () => {
       dispatch(logoutAction());
@@ -55,7 +50,6 @@ export const useUserData = () => {
     hasToken,
     userInfo,
     cart,
-    handleLoginSubmit,
     handleLogoutClick,
     handleAddToCart,
     handleRemoveFromCart,

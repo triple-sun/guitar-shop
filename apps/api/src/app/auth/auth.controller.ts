@@ -20,6 +20,7 @@ import { UserLoggedRdo, UserRdo } from './rdo/user.rdo';
 import { UserAuthDto } from '../user/dto/user-auth.dto';
 import { UserExistsGuard } from './guards/user-exists.guard';
 import { UserLoginGuard } from './guards/login.guard';
+import { FormDataRequest } from 'nestjs-form-data';
 
 @ApiTags(Prefix.Auth)
 @Controller(Prefix.Auth)
@@ -30,6 +31,7 @@ export class AuthController {
   @ApiBody({ type: CreateUserDto })
   @UseGuards(EmailAlreadyExistsGuard)
   @ApiCreatedResponse({ type: UserRdo })
+  @FormDataRequest()
   registerUser(@Body() dto: CreateUserDto) {
    return this.authService.registerUser(dto)
   }

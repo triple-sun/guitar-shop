@@ -25,6 +25,7 @@ export enum UserAction {
   SetAuthAction = 'user/setAuth',
   Login = 'user/login',
   Logout = 'user/logout',
+  Register = 'user/register'
 }
 
 export enum CartAction {

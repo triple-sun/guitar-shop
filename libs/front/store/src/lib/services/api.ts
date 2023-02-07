@@ -8,7 +8,7 @@ import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
 import { getToken } from './token';
 
-const BACKEND_URL = 'http://localhost:3333/api';
+const BACKEND_URL = 'http://localhost:3333/'
 const REQUEST_TIMEOUT = 5000;
 
 const StatusCodeMapping: Record<number, boolean> = {
